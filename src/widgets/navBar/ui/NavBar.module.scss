@@ -1,0 +1,19 @@
+.NavBar {
+  width: 100%;
+  height: var(--navbar-hight);
+  background-color: var(--inverted-bg-color);
+  display: flex;
+}
+
+.links {
+  margin-left: auto;
+  padding: 20px;
+}
+
+.main {
+  margin: 20px;
+}
+
+.about {
+  margin: 20px;
+}
