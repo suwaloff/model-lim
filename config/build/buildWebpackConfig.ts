@@ -1,11 +1,11 @@
-import { IBuildOptions } from './types/config';
+import { type IBuildOptions } from './types/config';
 import { buildPlagins } from './buildPlagins';
 import { buildLoaders } from './buildLoaders';
 import { buildResolvers } from './buildResolvers';
 import { buildDevServer } from './buildDevServer';
-import webpack from 'webpack';
+import type webpack from 'webpack';
 
-export function buildWebpackConfig(
+export function buildWebpackConfig (
   options: IBuildOptions
 ): webpack.Configuration {
   const { mode, paths, isDev } = options;
@@ -15,14 +15,14 @@ export function buildWebpackConfig(
     output: {
       filename: 'bundle.[contenthash].js',
       path: paths.build,
-      clean: true,
+      clean: true
     },
     plugins: buildPlagins(options),
     module: {
-      rules: buildLoaders(options),
+      rules: buildLoaders(options)
     },
     resolve: buildResolvers(options),
     devtool: isDev ? 'inline-source-map' : undefined,
-    devServer: isDev ? buildDevServer(options) : undefined,
+    devServer: isDev ? buildDevServer(options) : undefined
   };
 }
