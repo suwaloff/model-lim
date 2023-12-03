@@ -3,11 +3,12 @@ import cls from './Button.module.scss';
 
 export enum ButtonTHeme {
   CLEAR = 'clear',
+  MAIN = 'main',
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  className?: string
-  theme: ButtonTHeme
+  className?: string;
+  theme: ButtonTHeme;
 }
 
 export const Button = (props: ButtonProps): React.ReactElement<ButtonProps> => {

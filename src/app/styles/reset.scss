@@ -8,16 +8,8 @@ input,
 button,
 textarea,
 select {
+  margin: 0;
   font: inherit;
-}
-
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
 }
 
 p,
