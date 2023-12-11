@@ -1,17 +1,37 @@
 .Button {
   cursor: pointer;
+  position: relative;
+  text-align: center;
+  padding: 13px 23px;
 }
 
 .clear {
   background: none;
   border: none;
   outline: none;
-  padding: 0;
 }
 
 .main {
-  border: 2px;
+  border: 1px solid #222222;
+  border-radius: 8px;
   color: brown;
-  padding: 20px;
   margin: 20px;
+}
+
+.outline {
+  background-color: #ffffff;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #222222;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+  outline: none;
+  padding: 13px 23px;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s, transform 0.1s;
+  user-select: none;
+  width: auto;
 }
