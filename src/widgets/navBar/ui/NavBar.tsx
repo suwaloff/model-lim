@@ -1,8 +1,9 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { AppLink, AppLinkTheme } from 'shared/ui/appLink/AppLink';
 import cls from './NavBar.module.scss';
+
 interface NavBarProps {
-  className?: string
+  className?: string;
 }
 
 export const NavBar = ({ className }: NavBarProps) => {
@@ -12,11 +13,7 @@ export const NavBar = ({ className }: NavBarProps) => {
         <AppLink theme={AppLinkTheme.PRIMARY} className={cls.main} to={'/'}>
           Main
         </AppLink>
-        <AppLink
-          theme={AppLinkTheme.SECONDARY}
-          className={cls.about}
-          to={'/about'}
-        >
+        <AppLink theme={AppLinkTheme.SECONDARY} className={cls.about} to={'/about'}>
           About
         </AppLink>
       </div>
