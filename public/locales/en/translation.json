@@ -1,7 +1,9 @@
 {
-  "язык": "english",
+  "язык": "En",
   "Страница не найдена": "Page not found",
   "Обновить": "update",
   "На главную": "to main",
-  "Упс! Что-то пошло не так": "Oops! Something went wrong"
+  "Упс! Что-то пошло не так": "Oops! Something went wrong",
+  "Главная": "Main",
+  "О сайте": "about"
 }

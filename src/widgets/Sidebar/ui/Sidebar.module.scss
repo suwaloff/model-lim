@@ -1,0 +1,49 @@
+.Sidebar {
+  height: calc(100vh - var(--navbar-height));
+  width: var(--sidebar-width);
+  background-color: var(--inverted-bg-color);
+  color: var(--primary-color);
+  position: relative;
+  transition: width 0.2s;
+}
+
+.items {
+  margin-top: 50px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+.item {
+  padding-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link {
+  margin-left: 20px;
+  opacity: 1;
+  white-space: nowrap;
+}
+
+.colapseButton {
+  font-size: var(--font-size-l);
+  position: absolute;
+  right: -40px;
+  bottom: 40px;
+}
+
+.icon {
+  fill: var(--bg-color);
+}
+
+.collapsed {
+  width: var(--sidebar-width-collapsed);
+
+  .link {
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+}

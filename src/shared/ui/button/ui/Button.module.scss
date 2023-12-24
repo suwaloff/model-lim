@@ -19,19 +19,39 @@
 }
 
 .outline {
-  background-color: #ffffff;
+  padding: 10px 15px;
+  color: var(--primary-color);
+  background: none;
   border: 1px solid #222222;
-  border-radius: 8px;
-  box-sizing: border-box;
-  color: #222222;
-  cursor: pointer;
-  display: inline-block;
-  margin: 0;
-  outline: none;
-  padding: 13px 23px;
-  text-decoration: none;
-  touch-action: manipulation;
-  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s, transform 0.1s;
-  user-select: none;
-  width: auto;
+}
+
+.background {
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--bg-color);
+}
+
+.background-inverted {
+  background-color: var(--inverted-bg-color);
+  color: var(--primary-color);
+  border: 1px solid var(--inverted-bg-color);
+}
+
+.square {
+  padding: 0px;
+}
+
+.square.size-m {
+  width: var(--font-line-m);
+  height: var(--font-line-m);
+}
+
+.square.size-l {
+  width: var(--font-line-l);
+  height: var(--font-line-l);
+}
+
+.square.size-xl {
+  width: var(--font-line-xl);
+  height: var(--font-line-xl);
 }

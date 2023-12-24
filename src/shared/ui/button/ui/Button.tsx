@@ -5,18 +5,34 @@ export enum ButtonTHeme {
   CLEAR = 'clear',
   MAIN = 'main',
   OUTLINE = 'outline',
+  BACKGROUND = 'background',
+  BACKGROUND_INVERTED = 'background-inverted',
+}
+
+export enum ButtonSize {
+  M = 'size-m',
+  L = 'size-l',
+  XL = 'size-xl',
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   theme?: ButtonTHeme;
+  size?: ButtonSize;
+  square?: boolean;
 }
 
 export const Button = (props: ButtonProps): React.ReactElement<ButtonProps> => {
-  const { className, children, theme, ...otherProps } = props;
+  const { className, children, theme, size, square, ...otherProps } = props;
 
+  const mods: Record<string, boolean> = {
+    [cls.square]: square,
+  };
   return (
-    <button className={classNames(cls.Button, {}, [className, cls[theme]])} {...otherProps}>
+    <button
+      className={classNames(cls.Button, mods, [className, cls[theme], cls[size]])}
+      {...otherProps}
+    >
       {children}
     </button>
   );
