@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import cls from './Modal.module.scss';
 import { Portal } from '../portal/Portal';
+import cls from './Modal.module.scss';
 
 interface ModalProps {
   className?: string;
@@ -12,9 +12,7 @@ interface ModalProps {
 
 export const Modal = (props: ModalProps) => {
   const { children, className, isOpen, onClose } = props;
-
   const [isClosing, setIsClosing] = useState(false);
-
   const timeref = useRef<ReturnType<typeof setTimeout>>();
 
   const closeHandler = useCallback(() => {
