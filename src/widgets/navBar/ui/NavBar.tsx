@@ -6,6 +6,7 @@ import { ButtonTHeme } from 'shared/ui/button/ui/Button';
 import { ThemeSwitcher } from 'widgets/themeSwitcher';
 import { LangSwitcher } from 'widgets/langSwitcher';
 import cls from './NavBar.module.scss';
+import { LoginModal } from 'features/AuthByUsername';
 
 interface NavBarProps {
   className?: string;
@@ -14,8 +15,12 @@ interface NavBarProps {
 export const NavBar = ({ className }: NavBarProps) => {
   const [isAuthModal, setIsAuthModal] = useState(false);
 
-  const onToogleModal = useCallback(() => {
-    setIsAuthModal((prew) => !prew);
+  const closeModal = useCallback(() => {
+    setIsAuthModal(false);
+  }, []);
+
+  const showModal = useCallback(() => {
+    setIsAuthModal(true);
   }, []);
 
   return (
@@ -23,15 +28,11 @@ export const NavBar = ({ className }: NavBarProps) => {
       <div className={cls.userСontrols}>
         <ThemeSwitcher />
         <LangSwitcher className={cls.lang} />
-        <Button theme={ButtonTHeme.BACKGROUND} onClick={onToogleModal}>
+        <Button theme={ButtonTHeme.BACKGROUND} onClick={showModal}>
           Войти
         </Button>
       </div>
-      <Modal isOpen={isAuthModal} onClose={onToogleModal}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias nihil veniam ducimus eligendi
-        reiciendis asperiores aliquid quidem deserunt ipsam quos eveniet, provident architecto,
-        consequuntur libero! Placeat laborum temporibus exercitationem ea.
-      </Modal>
+      <LoginModal onClose={closeModal} isOpen={isAuthModal} />
     </div>
   );
 };

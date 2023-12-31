@@ -1,5 +1,7 @@
-import { counterSchema } from 'entities/Counter';
+import { CounterSchema } from 'entities/Counter';
+import { UserShema } from 'entities/User';
 
 export interface StateSchema {
-  counter: counterSchema;
+  counter: CounterSchema;
+  user: UserShema;
 }

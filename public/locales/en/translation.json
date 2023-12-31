@@ -5,5 +5,9 @@
   "На главную": "to main",
   "Упс! Что-то пошло не так": "Oops! Something went wrong",
   "Главная": "Main",
-  "О сайте": "about"
+  "О сайте": "about",
+  "Авторизация": "Log in",
+  "Войти": "Login",
+  "Логин": "Login",
+  "Пароль": "Password"
 }
