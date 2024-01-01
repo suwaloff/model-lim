@@ -40,3 +40,35 @@ export const OutlineDark: Story = {
   },
   decorators: [ThemeDecorator(Theme.DARK)],
 };
+
+export const Outline_Disabled_Dark: Story = {
+  args: {
+    children: 'text',
+    theme: ButtonTHeme.OUTLINE,
+    disabled: true,
+  },
+  decorators: [ThemeDecorator(Theme.DARK)],
+};
+
+export const Outline_Disabled: Story = {
+  args: {
+    children: 'text',
+    theme: ButtonTHeme.OUTLINE,
+    disabled: true,
+  },
+};
+
+export const BACKGROUND: Story = {
+  args: {
+    children: 'text',
+    theme: ButtonTHeme.BACKGROUND,
+  },
+};
+
+export const BACKGROUND_INVERTED: Story = {
+  args: {
+    children: 'text',
+    theme: ButtonTHeme.BACKGROUND_INVERTED,
+  },
+  decorators: [ThemeDecorator(Theme.DARK)],
+};

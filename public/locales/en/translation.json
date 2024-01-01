@@ -9,5 +9,8 @@
   "Авторизация": "Log in",
   "Войти": "Login",
   "Логин": "Login",
-  "Пароль": "Password"
+  "Пароль": "Password",
+  "неверный логин и пароль": "incorrect login or password",
+  "войти": "Log in",
+  "выйти": "Sign out"
 }
