@@ -9,11 +9,11 @@ import { memo, useCallback, ChangeEvent } from 'react';
 import { loginByUsername } from 'features/AuthByUsername/model/services/loginByUsername/loginByUsername';
 import { Text, TextTheme } from 'shared/ui/text/Text';
 
-interface LoginFormProps {
+export interface LoginFormProps {
   className?: string;
 }
 
-export const LoginForm = memo(({ className }: LoginFormProps) => {
+const LoginForm = memo(({ className }: LoginFormProps) => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
@@ -72,3 +72,5 @@ export const LoginForm = memo(({ className }: LoginFormProps) => {
     </div>
   );
 });
+
+export default LoginForm;
