@@ -10,7 +10,6 @@ describe('Button component', () => {
   test('add theme', () => {
     render(<Button theme={ButtonTHeme.CLEAR}>Click me</Button>);
     expect(screen.getByText('Click me')).toHaveClass('clear');
-    screen.debug();
   });
 
   test('calls onClick', () => {
