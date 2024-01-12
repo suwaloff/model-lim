@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Button } from 'shared/ui/button';
 import { ButtonTHeme } from 'shared/ui/button/ui/Button';
 import { ThemeSwitcher } from 'widgets/themeSwitcher';
@@ -15,7 +15,7 @@ interface NavBarProps {
   className?: string;
 }
 
-export const NavBar = ({ className }: NavBarProps) => {
+export const NavBar = memo(({ className }: NavBarProps) => {
   const [isAuthModal, setIsAuthModal] = useState(false);
   const dispatch = useAppDispatch();
   const { authData } = useSelector(getUserAuthData);
@@ -61,4 +61,4 @@ export const NavBar = ({ className }: NavBarProps) => {
       {isAuthModal && <LoginModal onClose={onCloseModal} isOpen={isAuthModal} />}
     </div>
   );
-};
+});

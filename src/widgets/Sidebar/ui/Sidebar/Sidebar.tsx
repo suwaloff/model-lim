@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Button, ButtonSize, ButtonTHeme } from 'shared/ui/button';
 import { useTranslation } from 'react-i18next';
 import { SidebarElements } from '../model/items';
@@ -10,9 +10,8 @@ interface SidebarProps {
   className?: string;
 }
 
-export const Sidebar = ({ className }: SidebarProps) => {
+export const Sidebar = memo(({ className }: SidebarProps) => {
   const [collapsed, setCollapsed] = useState(false);
-
   const { t } = useTranslation();
 
   const collapsedSidebar = () => {
@@ -41,4 +40,4 @@ export const Sidebar = ({ className }: SidebarProps) => {
       </Button>
     </div>
   );
-};
+});
