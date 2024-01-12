@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ButtonTHeme } from 'shared/ui/button';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import { loginActions, loginReducer } from 'features/AuthByUsername/model/slice/loginSlice';
 import { memo, useCallback, ChangeEvent, useEffect } from 'react';
 import { loginByUsername } from 'features/AuthByUsername/model/services/loginByUsername/loginByUsername';
@@ -12,6 +12,7 @@ import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLogi
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
 import cls from './LoginForm.module.scss';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 export interface LoginFormProps {
   className?: string;
@@ -19,20 +20,19 @@ export interface LoginFormProps {
 
 const LoginForm = memo(({ className }: LoginFormProps) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-
+  const dispatch = useAppDispatch();
   const username = useSelector(getLoginUsername);
   const password = useSelector(getLoginPassword);
   const isLoading = useSelector(getLoginIsLoading);
   const error = useSelector(getLoginError);
-
   const store = useStore() as ReduxStoreWithManager;
 
   useEffect(() => {
     store.reducerManager.add('login', loginReducer);
-
+    dispatch({ type: `@INIT test reducer` });
     return () => {
       store.reducerManager.remove('login');
+      dispatch({ type: `@DESTROY test reducer` });
     };
   }, []);
 
@@ -50,7 +50,7 @@ const LoginForm = memo(({ className }: LoginFormProps) => {
     [dispatch]
   );
 
-  const setLoginValue = useCallback(() => {
+  const onLoginClick = useCallback(() => {
     dispatch(loginByUsername({ username, password }));
     dispatch(loginActions.resetInput());
   }, [username, password, dispatch]);
@@ -76,7 +76,7 @@ const LoginForm = memo(({ className }: LoginFormProps) => {
       <Button
         className={cls.loginBtn}
         theme={ButtonTHeme.BACKGROUND}
-        onClick={setLoginValue}
+        onClick={onLoginClick}
         disabled={isLoading}
       >
         {t('Войти')}

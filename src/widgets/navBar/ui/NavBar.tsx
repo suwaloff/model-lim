@@ -5,10 +5,11 @@ import { ButtonTHeme } from 'shared/ui/button/ui/Button';
 import { ThemeSwitcher } from 'widgets/themeSwitcher';
 import { LangSwitcher } from 'widgets/langSwitcher';
 import { LoginModal, loginActions } from 'features/AuthByUsername';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getUserAuthData, userActions } from 'entities/User';
-import cls from './NavBar.module.scss';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import cls from './NavBar.module.scss';
 
 interface NavBarProps {
   className?: string;
@@ -16,8 +17,7 @@ interface NavBarProps {
 
 export const NavBar = ({ className }: NavBarProps) => {
   const [isAuthModal, setIsAuthModal] = useState(false);
-
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { authData } = useSelector(getUserAuthData);
   const { t } = useTranslation();
 
@@ -58,7 +58,7 @@ export const NavBar = ({ className }: NavBarProps) => {
           {t('войти')}
         </Button>
       </div>
-      <LoginModal onClose={onCloseModal} isOpen={isAuthModal} />
+      {isAuthModal && <LoginModal onClose={onCloseModal} isOpen={isAuthModal} />}
     </div>
   );
 };

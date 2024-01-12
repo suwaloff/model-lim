@@ -1,11 +1,9 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useState } from 'react';
-import { AppLink, AppLinkTheme } from 'shared/ui/appLink/AppLink';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Button, ButtonSize, ButtonTHeme } from 'shared/ui/button';
 import { useTranslation } from 'react-i18next';
-import InfoIcon from 'shared/assets/icons/info-circle.svg';
-import MainIcon from 'shared/assets/icons/main-icon.svg';
+import { SidebarElements } from '../model/items';
+import { SidebarItem } from '../SidebarItem/SidebarItem';
 import cls from './Sidebar.module.scss';
 
 interface SidebarProps {
@@ -27,14 +25,9 @@ export const Sidebar = ({ className }: SidebarProps) => {
       className={classNames(cls.Sidebar, { [cls.collapsed]: collapsed }, [className])}
     >
       <div className={cls.items}>
-        <AppLink theme={AppLinkTheme.PRIMARY} className={cls.item} to={RoutePath.main}>
-          <MainIcon className={cls.icon} />
-          <span className={cls.link}> {t('Главная')} </span>
-        </AppLink>
-        <AppLink theme={AppLinkTheme.SECONDARY} className={cls.item} to={RoutePath.about}>
-          <InfoIcon className={cls.icon} />
-          <span className={cls.link}>{t('О сайте')} </span>
-        </AppLink>
+        {SidebarElements.map((item) => (
+          <SidebarItem item={item} key={item.path} collapsed={collapsed} />
+        ))}
       </div>
       <Button
         data-testid="btn-collapsed"

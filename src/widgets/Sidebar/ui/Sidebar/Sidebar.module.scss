@@ -9,23 +9,9 @@
 
 .items {
   margin-top: 50px;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  padding-left: 20px;
-}
-
-.item {
-  padding-top: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.link {
   margin-left: 20px;
-  opacity: 1;
-  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
 }
 
 .colapseButton {
@@ -33,10 +19,6 @@
   position: absolute;
   right: -40px;
   bottom: 40px;
-}
-
-.icon {
-  fill: var(--bg-color);
 }
 
 .collapsed {
