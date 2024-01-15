@@ -1,5 +1,6 @@
 import { ReduxStoreWithManager } from 'app/providers/StoreProvider';
-import { profileReducer } from 'entities/Profile';
+import { ProfileCard, profileReducer } from 'entities/Profile';
+import { fetchProfileData } from 'entities/Profile';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStore } from 'react-redux';
@@ -11,6 +12,10 @@ const ProfilePage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(fetchProfileData());
+  }, []);
+
+  useEffect(() => {
     store.reducerManager.add('profile', profileReducer);
     dispatch({ type: `@INIT test reducer` });
     return () => {
@@ -19,7 +24,11 @@ const ProfilePage = () => {
     };
   }, []);
 
-  return <div>{t('Профиль')}</div>;
+  return (
+    <div>
+      <ProfileCard />
+    </div>
+  );
 };
 
 export default ProfilePage;
