@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { MutableRefObject, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { Portal } from '../portal/Portal';
 import cls from './Modal.module.scss';
 
@@ -14,7 +14,7 @@ interface ModalProps {
 export const Modal = (props: ModalProps) => {
   const { children, className, isOpen, onClose, lazy } = props;
   const [isClosing, setIsClosing] = useState(false);
-  const timeref = useRef<ReturnType<typeof setTimeout>>();
+  const timeref = useRef() as MutableRefObject<ReturnType<typeof setTimeout>>;
 
   const [isMounted, setIsMounted] = useState(false);
 

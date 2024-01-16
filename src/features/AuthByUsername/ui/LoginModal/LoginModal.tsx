@@ -7,7 +7,7 @@ import { Loader } from 'shared/ui/loader/Loader';
 
 interface LoginModalProps {
   className?: string;
-  isOpen?: boolean;
+  isOpen: boolean;
   onClose?: () => void;
 }
 

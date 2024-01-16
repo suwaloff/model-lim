@@ -10,18 +10,21 @@ export default ({ config }: { config: webpack.Configuration }) => {
     html: '',
     src: path.resolve(__dirname, '..', '..', 'src'),
   };
-  config.resolve.modules.push(paths.src);
-  config.resolve.extensions.push('.tsx', '.ts');
-  config.module.rules.push(builCssLoader(true));
+  config.resolve!.modules!.push(paths.src);
+  config.resolve!.extensions!.push('.tsx', '.ts');
+  config.module!.rules!.push(builCssLoader(true));
 
-  config.module.rules = config.module.rules.map((rule: RuleSetRule) => {
-    if (/svg/.test(rule.test as string)) {
-      return { ...rule, exclude: /\.svg$/i };
+  config.module!.rules = config.module!.rules!.map(
+    //@ts-ignore
+    (rule: RuleSetRule) => {
+      if (/svg/.test(rule.test as string)) {
+        return { ...rule, exclude: /\.svg$/i };
+      }
+      return rule;
     }
-    return rule;
-  });
+  );
 
-  config.module.rules.push({
+  config.module?.rules.push({
     test: /\.svg$/,
     use: ['@svgr/webpack'],
   });

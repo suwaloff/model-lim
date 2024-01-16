@@ -1,4 +1,4 @@
-import { classNames } from 'shared/lib/classNames/classNames';
+import { Mods, classNames } from 'shared/lib/classNames/classNames';
 import cls from './Button.module.scss';
 
 export enum ButtonTHeme {
@@ -24,9 +24,17 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = (props: ButtonProps): React.ReactElement<ButtonProps> => {
-  const { className, children, theme, size, square, disabled, ...otherProps } = props;
+  const {
+    className,
+    children,
+    theme = ButtonTHeme.OUTLINE,
+    size = ButtonSize.M,
+    square,
+    disabled,
+    ...otherProps
+  } = props;
 
-  const mods: Record<string, boolean> = {
+  const mods: Mods = {
     [cls.square]: square,
     [cls.disabled]: disabled,
   };
