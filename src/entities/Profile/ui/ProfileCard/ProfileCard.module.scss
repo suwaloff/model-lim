@@ -1,0 +1,12 @@
+.ProfileCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid;
+  flex-direction: column;
+}
+.data {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}

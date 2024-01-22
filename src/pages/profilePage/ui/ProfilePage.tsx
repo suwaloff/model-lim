@@ -1,21 +1,32 @@
 import { ReduxStoreWithManager } from 'app/providers/StoreProvider';
-import { ProfileCard, profileReducer } from 'entities/Profile';
-import { fetchProfileData } from 'entities/Profile';
-import { useEffect } from 'react';
+import {
+  ProfileCard,
+  getProfileError,
+  getProfileIsLoading,
+  profileReducer,
+  fetchProfileData,
+  profileActions,
+  getProfileReadonly,
+} from 'entities/Profile';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useStore } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
+import { getProfileForm } from 'entities/Profile/model/selectors/getProfileForm/getProfileForm';
 
 const ProfilePage = () => {
   const { t } = useTranslation('profile');
   const store = useStore() as ReduxStoreWithManager;
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchProfileData());
-  }, []);
+  const error = useSelector(getProfileError);
+  const isLoading = useSelector(getProfileIsLoading);
+  const readonly = useSelector(getProfileReadonly);
+  const formData = useSelector(getProfileForm);
 
   useEffect(() => {
+    dispatch(fetchProfileData());
     store.reducerManager.add('profile', profileReducer);
     dispatch({ type: `@INIT test reducer` });
     return () => {
@@ -24,9 +35,31 @@ const ProfilePage = () => {
     };
   }, []);
 
+  const onChangeFirstName = useCallback(
+    (value?: string) => {
+      dispatch(profileActions.updateProfile({ first: value || '' }));
+    },
+    [dispatch]
+  );
+
+  const onChangeLastName = useCallback(
+    (value?: string) => {
+      dispatch(profileActions.updateProfile({ lastname: value || '' }));
+    },
+    [dispatch]
+  );
+
   return (
     <div>
-      <ProfileCard />
+      <ProfilePageHeader />
+      <ProfileCard
+        data={formData}
+        error={error}
+        isLoading={isLoading}
+        onChangeFirstName={onChangeFirstName}
+        onChangeLastName={onChangeLastName}
+        readonly={readonly}
+      />
     </div>
   );
 };

@@ -1,14 +1,14 @@
 import { Country, Currency } from 'shared/consts/common';
 
 export interface Profile {
-  first: string;
-  lastname: string;
-  age: number;
-  currency: Currency;
-  country: Country;
-  city: string;
-  username: string;
-  avatar: string;
+  first?: string;
+  lastname?: string;
+  age?: number;
+  currency?: Currency;
+  country?: Country;
+  city?: string;
+  username?: string;
+  avatar?: string;
 }
 
 export interface ProfileShema {
@@ -16,4 +16,5 @@ export interface ProfileShema {
   isLoading: boolean;
   error?: string;
   readonly: boolean;
+  form?: Profile;
 }
