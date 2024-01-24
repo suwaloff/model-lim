@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+}
+
+.label {
+  margin-right: 5px;
+}
+
+.select {
+  background: none;
+  outline: none;
+  border-radius: 4px;
+}
+
+.option {
+  padding: 10px;
+  background-color: var(--bg-color);
+}
