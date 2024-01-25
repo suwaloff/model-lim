@@ -15,6 +15,10 @@ import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
 import { getProfileForm } from 'entities/Profile/model/selectors/getProfileForm/getProfileForm';
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
+import { getProfileErrors } from 'entities/Profile/model/selectors/getProfileErrors/getProfileErrors';
+import { Text, TextTheme } from 'shared/ui/text/Text';
+import { ValidateProfileError } from 'entities/Profile/model/types/Profile';
+import { useTranslation } from 'react-i18next';
 
 const ProfilePage = () => {
   const store = useStore() as ReduxStoreWithManager;
@@ -23,6 +27,14 @@ const ProfilePage = () => {
   const isLoading = useSelector(getProfileIsLoading);
   const readonly = useSelector(getProfileReadonly);
   const formData = useSelector(getProfileForm);
+  const errors = useSelector(getProfileErrors);
+  const { t } = useTranslation('profile');
+
+  const translationsValidationErrors = {
+    [ValidateProfileError.INCORRECT_USER_DATA]: t('Пожалуйста заполните все поля'),
+    [ValidateProfileError.INCORRECT_USER_AGE]: t('Вы ввели некорректный возраст'),
+    [ValidateProfileError.NO_DATA]: t('данные не указаны'),
+  };
 
   useEffect(() => {
     dispatch(fetchProfileData());
@@ -87,6 +99,10 @@ const ProfilePage = () => {
   return (
     <div>
       <ProfilePageHeader />
+      {errors &&
+        errors.map((err) => (
+          <Text key={err} theme={TextTheme.ERROR} text={translationsValidationErrors[err]} />
+        ))}
       <ProfileCard
         data={formData}
         error={error}
