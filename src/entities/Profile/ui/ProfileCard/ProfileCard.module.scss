@@ -15,10 +15,12 @@
 .input {
   height: 30px;
   width: 200px;
-  margin-top: 10px;
-  border: none;
+  padding-left: 5px;
+  border: 0;
+  border-radius: 4px;
   background-color: var(--bg-color);
   color: var(--primary-color);
+  transition: border-color 0.5s ease;
 }
 
 .avatarWrapper {
@@ -29,6 +31,12 @@
 .editing {
   .input {
     border: 1px solid;
-    border-radius: 4px;
+    border-color: white;
   }
+}
+
+.text,
+.select {
+  margin-top: 25px;
+  margin-bottom: 5px;
 }

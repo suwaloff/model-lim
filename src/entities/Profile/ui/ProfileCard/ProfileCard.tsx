@@ -7,6 +7,7 @@ import { Currency } from 'entities/Currency/model/types/Currency';
 import { CurrencySelect } from 'entities/Currency';
 import { Country, CountrySelect } from 'entities/Country';
 import cls from './ProfileCard.module.scss';
+import { Text } from 'shared/ui/text/Text';
 
 interface ProfileCardProps {
   className?: string;
@@ -67,6 +68,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
             <Avatar src={data.avatar} />{' '}
           </div>
         )}
+        <Text title="Ваше имя :" className={cls.text} />
         <input
           className={cls.input}
           value={data?.first || ''}
@@ -77,38 +79,54 @@ export const ProfileCard = (props: ProfileCardProps) => {
             }
           }}
         ></input>
+        <Text title="Ваша фамилия :" className={cls.text} />
         <input
           className={cls.input}
           value={data?.lastname || ''}
           readOnly={readonly}
           onChange={(e) => onChangeLastName(e.target.value)}
         ></input>
-        <input
-          className={cls.input}
-          value={data?.city || ''}
-          readOnly={readonly}
-          onChange={(e) => onChangeCity(e.target.value)}
-        ></input>
-        <input
-          className={cls.input}
-          value={data?.age || ''}
-          readOnly={readonly}
-          onChange={(e) => onChangeAge(e.target.value)}
-        ></input>
-        <input
-          className={cls.input}
-          value={data?.avatar || ''}
-          readOnly={readonly}
-          onChange={(e) => onChangeAvatar(e.target.value)}
-        ></input>
+        <Text title="Ваш никнейм :" className={cls.text} />
         <input
           className={cls.input}
           value={data?.username || ''}
           readOnly={readonly}
           onChange={(e) => onChangeUserName(e.target.value)}
         ></input>
-        <CurrencySelect value={data?.currency} onChange={onChangeCurrency} readonly={readonly} />
-        <CountrySelect value={data?.country} onChange={onChangeCountry} readonly={readonly} />
+        <Text title="Ваш Город :" className={cls.text} />
+        <input
+          className={cls.input}
+          value={data?.city || ''}
+          readOnly={readonly}
+          onChange={(e) => onChangeCity(e.target.value)}
+        ></input>
+        <Text title="Ваш Возраст :" className={cls.text} />
+        <input
+          className={cls.input}
+          value={data?.age || ''}
+          readOnly={readonly}
+          onChange={(e) => onChangeAge(e.target.value)}
+        ></input>
+        <Text title="Аватарка :" className={cls.text} />
+        <input
+          className={cls.input}
+          value={data?.avatar || ''}
+          readOnly={readonly}
+          onChange={(e) => onChangeAvatar(e.target.value)}
+        ></input>
+
+        <CurrencySelect
+          value={data?.currency}
+          onChange={onChangeCurrency}
+          readonly={readonly}
+          className={cls.select}
+        />
+        <CountrySelect
+          value={data?.country}
+          onChange={onChangeCountry}
+          readonly={readonly}
+          className={cls.select}
+        />
       </div>
     </div>
   );
