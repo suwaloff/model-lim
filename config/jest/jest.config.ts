@@ -4,6 +4,7 @@ import * as path from 'path';
 const config: Config = {
   globals: {
     __IS_DEV__: true,
+    __PROJECT__: 'jest',
   },
   rootDir: '../../',
   modulePaths: ['<rootDir>src'],

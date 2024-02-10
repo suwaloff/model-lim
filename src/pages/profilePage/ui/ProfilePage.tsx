@@ -15,7 +15,7 @@ import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
 import { getProfileForm } from 'entities/Profile/model/selectors/getProfileForm/getProfileForm';
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
-import { getProfileErrors } from 'entities/Profile/model/selectors/getProfileErrors/getProfileErrors';
+import { getProfileErrors } from 'entities/Profile/model/selectors/getProfileValidateErrors/getProfileErrors';
 import { Text, TextTheme } from 'shared/ui/text/Text';
 import { ValidateProfileError } from 'entities/Profile/model/types/Profile';
 import { useTranslation } from 'react-i18next';
@@ -36,15 +36,17 @@ const ProfilePage = () => {
     [ValidateProfileError.NO_DATA]: t('данные не указаны'),
   };
 
-  useEffect(() => {
-    dispatch(fetchProfileData());
-    store.reducerManager.add('profile', profileReducer);
-    dispatch({ type: `@INIT test reducer` });
-    return () => {
-      store.reducerManager.remove('profile');
-      dispatch({ type: `@DESTROY test reducer` });
-    };
-  }, []);
+  if (__PROJECT__ !== 'storybook') {
+    useEffect(() => {
+      dispatch(fetchProfileData());
+      store.reducerManager.add('profile', profileReducer);
+      dispatch({ type: `@INIT test reducer` });
+      return () => {
+        store.reducerManager.remove('profile');
+        dispatch({ type: `@DESTROY test reducer` });
+      };
+    }, []);
+  }
 
   const onChangeFirstName = useCallback(
     (value?: string) => {

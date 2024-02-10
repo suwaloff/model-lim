@@ -8,7 +8,7 @@ export default (env: IBuildEnv) => {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     build: path.resolve(__dirname, 'build'),
     html: path.resolve(__dirname, 'public', 'index.html'),
-    src: path.resolve(__dirname, 'src')
+    src: path.resolve(__dirname, 'src'),
   };
 
   const PORT = env.port || 3000;
@@ -19,7 +19,8 @@ export default (env: IBuildEnv) => {
     mode,
     paths,
     port: PORT,
-    isDev
+    isDev,
+    project: 'frontend',
   });
 
   return config;
