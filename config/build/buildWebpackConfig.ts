@@ -5,9 +5,7 @@ import { buildResolvers } from './buildResolvers';
 import { buildDevServer } from './buildDevServer';
 import type webpack from 'webpack';
 
-export function buildWebpackConfig (
-  options: IBuildOptions
-): webpack.Configuration {
+export function buildWebpackConfig(options: IBuildOptions): webpack.Configuration {
   const { mode, paths, isDev } = options;
   return {
     mode,
@@ -15,14 +13,15 @@ export function buildWebpackConfig (
     output: {
       filename: 'bundle.[contenthash].js',
       path: paths.build,
-      clean: true
+      clean: true,
+      publicPath: '/',
     },
     plugins: buildPlagins(options),
     module: {
-      rules: buildLoaders(options)
+      rules: buildLoaders(options),
     },
     resolve: buildResolvers(options),
     devtool: isDev ? 'inline-source-map' : undefined,
-    devServer: isDev ? buildDevServer(options) : undefined
+    devServer: isDev ? buildDevServer(options) : undefined,
   };
 }
