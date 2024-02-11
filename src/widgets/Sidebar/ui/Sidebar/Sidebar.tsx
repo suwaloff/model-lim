@@ -1,7 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useState } from 'react';
 import { Button, ButtonSize, ButtonTHeme } from 'shared/ui/button';
-import { useTranslation } from 'react-i18next';
 import { SidebarElements } from '../model/items';
 import { SidebarItem } from '../SidebarItem/SidebarItem';
 import cls from './Sidebar.module.scss';
@@ -12,7 +11,6 @@ interface SidebarProps {
 
 export const Sidebar = memo(({ className }: SidebarProps) => {
   const [collapsed, setCollapsed] = useState(false);
-  const { t } = useTranslation();
 
   const collapsedSidebar = () => {
     setCollapsed(!collapsed);
