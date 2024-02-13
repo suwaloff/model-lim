@@ -6,6 +6,7 @@ import { ToolkitStore } from '@reduxjs/toolkit/dist/configureStore';
 import { ProfileShema } from 'entities/Profile';
 import { AxiosInstance } from 'axios';
 import { NavigateOptions, To } from 'react-router-dom';
+import { ArticleDetailsShema } from 'entities/Article';
 
 export interface StateSchema {
   counter: CounterSchema;
@@ -14,6 +15,7 @@ export interface StateSchema {
   // Async
   login?: LoginSchema;
   profile?: ProfileShema;
+  articleDetails?: ArticleDetailsShema;
 }
 
 export interface ReduxStoreWithManager extends ToolkitStore<StateSchema> {
