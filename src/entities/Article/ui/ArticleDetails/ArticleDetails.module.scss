@@ -9,9 +9,31 @@
 .title {
   margin-top: 20px;
   border-radius: 12px;
+  margin-bottom: 8px;
 }
 
 .skeleton {
-  margin-top: 15px;
+  margin-top: 16px;
   border-radius: 12px;
+}
+
+.icon {
+  fill: var(--inverted-bg-color);
+  margin-right: 10px;
+}
+
+.articleInfo {
+  display: flex;
+  align-items: center;
+}
+
+.avatarWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.block {
+  margin-top: 16px;
+  padding-bottom: 24px;
 }

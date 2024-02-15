@@ -3,6 +3,10 @@
   position: relative;
   text-align: center;
   padding: 13px 23px;
+
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 .clear {

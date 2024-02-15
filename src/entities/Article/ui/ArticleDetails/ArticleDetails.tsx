@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { fetchArticleById } from '../../model/services/fetchArticleById/fetchArticleById';
 import { useSelector, useStore } from 'react-redux';
 import {
@@ -8,12 +8,19 @@ import {
   getArticleDetailsError,
   getArticleDetailsIsLoading,
 } from '../../model/selectors/getArticleDetails';
-import { Loader } from 'shared/ui/loader/Loader';
 import { PageError } from 'widgets/PageError';
-import cls from './ArticleDetails.module.scss';
 import { ReduxStoreWithManager } from 'app/providers/StoreProvider';
 import { articleReducer } from 'entities/Article/model/slice/ArticleDetailsSlice';
 import Skeleton from 'shared/ui/skeleton/Skeleton';
+import { Avatar } from 'shared/ui/avatar/Avatar';
+import { Text, TextAlign, TextSize } from 'shared/ui/text/Text';
+import CalendarIcon from 'shared/assets/icons/article-icon/calendar.svg';
+import EyeIcon from 'shared/assets/icons/article-icon/eye.svg';
+import cls from './ArticleDetails.module.scss';
+import { ArticleBlock, ArticleBlockType } from '../../model/types/Article';
+import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleCodeBlockComponent';
+import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
+import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent';
 
 interface ArticleDetailsProps {
   className?: string;
@@ -25,9 +32,22 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
   const store = useStore() as ReduxStoreWithManager;
   const dispatch = useAppDispatch();
   const error = useSelector(getArticleDetailsError);
-  //const isLoading = useSelector(getArticleDetailsIsLoading);
-  const isLoading = true;
-  const data = useSelector(getArticleDetailsData);
+  const isLoading = useSelector(getArticleDetailsIsLoading);
+  // const isLoading = true;
+  const articleData = useSelector(getArticleDetailsData);
+
+  const renderBlock = useCallback((block: ArticleBlock) => {
+    switch (block.type) {
+      case ArticleBlockType.CODE:
+        return <ArticleCodeBlockComponent className={cls.block} block={block} />;
+      case ArticleBlockType.TEXT:
+        return <ArticleTextBlockComponent className={cls.block} block={block} />;
+      case ArticleBlockType.IMAGE:
+        return <ArticleImageBlockComponent className={cls.block} block={block} />;
+      default:
+        return null;
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(fetchArticleById(id));
@@ -52,13 +72,30 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
         <Skeleton width={600} height={24} className={cls.skeleton} />
         <Skeleton width="100%" height={200} className={cls.skeleton} />
         <Skeleton width="100%" height={200} className={cls.skeleton} />
-        <Skeleton width={300} height={32} className={cls.skeleton} />
-        <Skeleton width={600} height={24} className={cls.skeleton} />
-        <Skeleton width="100%" height={200} className={cls.skeleton} />
-        <Skeleton width="100%" height={200} className={cls.skeleton} />
       </div>
     );
   }
 
-  return <div className={classNames(cls.ArticleDetails, {}, [className])}>{data?.title}</div>;
+  return (
+    <div className={classNames(cls.ArticleDetails, {}, [className])}>
+      <div className={cls.avatarWrapper}>
+        <Avatar size={300} src={articleData?.img} />
+      </div>
+      <Text
+        size={TextSize.L}
+        title={articleData?.title}
+        text={articleData?.subtitle}
+        className={cls.title}
+      />
+      <div className={cls.articleInfo}>
+        <CalendarIcon className={cls.icon} />
+        {articleData?.createdAt}
+      </div>
+      <div className={cls.articleInfo}>
+        <EyeIcon className={cls.icon} />
+        {articleData?.views}
+      </div>
+      {articleData?.blocks.map(renderBlock)}
+    </div>
+  );
 };

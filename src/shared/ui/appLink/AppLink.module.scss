@@ -1,6 +1,10 @@
 .AppLink {
   text-decoration: none;
   color: var(--primary-color);
+
+  &:hover {
+    color: var(--bg-color);
+  }
 }
 
 .primary {

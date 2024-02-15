@@ -12,7 +12,7 @@ export interface ArticleBaseBlock {
 export interface ArticleTextBlock extends ArticleBaseBlock {
   type: ArticleBlockType.TEXT;
   title?: string;
-  paragraphs: string;
+  paragraphs: string[];
 }
 export interface ArticleImageBlock {
   type: ArticleBlockType.IMAGE;
