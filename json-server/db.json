@@ -42,7 +42,7 @@
         {
           "id": "4",
           "type": "CODE",
-          "code": "const path = require('path');\n\nconst server = jsonServer.create();\n\nconst router = jsonServer.router(path.resolve(__dirname, 'db.json'));\n\nserver.use(jsonServer.defaults({}));\nserver.use(jsonServer.bodyParser);"
+          "code": "const path = require('path');\n\nconst server = jsonServer.create();\n\nconst router = jsonServer.router(path.resolve(__dirname, 'db.json'));\n\nserver.use(jsonServer.defaults({}));\nserver.use(jsonServer.bodyParser);\nconst port = process.env.PORT || 3000;\n\nserver.listen(port, () => {\n    console.log(JSON Server is running on port ${port});\n});"
         },
         {
           "id": "5",
@@ -62,7 +62,7 @@
         {
           "id": "3",
           "type": "CODE",
-          "code": "const path = require('path');\n\nconst server = jsonServer.create();\n\nconst router = jsonServer.router(path.resolve(__dirname, 'db.json'));\n\nserver.use(jsonServer.defaults({}));\nserver.use(jsonServer.bodyParser);"
+          "code": "const express = require('express');\nconst app = express();\n\napp.get('/', (req, res) => {\n    res.send('Hello World!');\n});\n\napp.post('/api/data', (req, res) => {\n    const data = req.body;\n    res.json(data);\n});\n\napp.listen(3000, () => {\n    console.log('Server is running on port 3000');\n});"
         },
         {
           "id": "7",

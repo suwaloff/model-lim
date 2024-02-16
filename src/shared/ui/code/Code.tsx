@@ -1,28 +1,40 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { ReactNode, useEffect } from 'react';
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
-import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import { useCallback } from 'react';
+import { ButtonTHeme, Button } from 'shared/ui/button';
+import { Highlight, themes } from 'prism-react-renderer';
+import CopySvg from 'shared/assets/icons/article-icon/copy.svg';
 import cls from './Code.module.scss';
-import { Button } from '../button';
 
 interface CodeProps {
   className?: string;
-  children: ReactNode;
+  children: string;
 }
 
 export const Code = (props: CodeProps) => {
   const { children, className } = props;
-  hljs.registerLanguage('javascript', javascript);
 
-  useEffect(() => {
-    hljs.highlightAll();
-  }, [hljs]);
+  const onCopy = useCallback(() => {
+    navigator.clipboard.writeText(children);
+  }, [children]);
 
   return (
-    <pre className={classNames(cls.Code, {}, [className])}>
-      <Button className={cls.copyBtn}>копировать</Button>
-      <code>{children}</code>
-    </pre>
+    <div className={classNames(cls.Code, {}, [className])}>
+      <Button onClick={onCopy} className={cls.copyBtn} theme={ButtonTHeme.CLEAR}>
+        <CopySvg className={cls.copySvg} />
+      </Button>
+      <Highlight theme={themes.duotoneDark} code={children} language="js">
+        {({ style, tokens, getLineProps, getTokenProps }) => (
+          <pre style={style}>
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
+    </div>
   );
 };

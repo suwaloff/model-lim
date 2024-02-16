@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ArticleDetails } from './ArticleDetails';
+import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Theme } from 'app/providers/ThemeProvider';
-import ArticleDetailsPage from './ArticleDetailsPage';
-import { Article, ArticleBlockType, ArticleType } from 'entities/Article/model/types/Article';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
+import { Article, ArticleType, ArticleBlockType } from '../../model/types/Article';
 
 const article: Article = {
   id: '1',
@@ -76,20 +76,76 @@ const article: Article = {
 };
 
 const meta = {
-  title: 'pages/ArticleDetailsPage',
-  component: ArticleDetailsPage,
-} satisfies Meta<typeof ArticleDetailsPage>;
+  title: 'pages/ArticleDetails',
+  component: ArticleDetails,
+} satisfies Meta<typeof ArticleDetails>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Light: Story = {};
-
-export const Dark: Story = {
+export const LightArticle: Story = {
+  args: {
+    id: '',
+  },
+  decorators: [
+    ThemeDecorator(Theme.LIGHT),
+    StoreDecorator({
+      articleDetails: { data: article },
+    }),
+  ],
+};
+export const DarkArticle: Story = {
+  args: {
+    id: '',
+  },
   decorators: [
     ThemeDecorator(Theme.DARK),
     StoreDecorator({
       articleDetails: { data: article },
+    }),
+  ],
+};
+export const LoadingLight: Story = {
+  args: {
+    id: '',
+  },
+  decorators: [
+    ThemeDecorator(Theme.LIGHT),
+    StoreDecorator({
+      articleDetails: { isLoading: true },
+    }),
+  ],
+};
+export const LoadingDark: Story = {
+  args: {
+    id: '',
+  },
+  decorators: [
+    ThemeDecorator(Theme.DARK),
+    StoreDecorator({
+      articleDetails: { isLoading: true },
+    }),
+  ],
+};
+export const ErrorLight: Story = {
+  args: {
+    id: '',
+  },
+  decorators: [
+    ThemeDecorator(Theme.LIGHT),
+    StoreDecorator({
+      articleDetails: { error: 'error' },
+    }),
+  ],
+};
+export const ErrorDark: Story = {
+  args: {
+    id: '',
+  },
+  decorators: [
+    ThemeDecorator(Theme.DARK),
+    StoreDecorator({
+      articleDetails: { error: 'error' },
     }),
   ],
 };

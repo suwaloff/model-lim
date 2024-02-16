@@ -4,7 +4,6 @@ import { memo } from 'react';
 import { ArticleDetails } from 'entities/Article';
 import cls from './ArticleDetailsPage.module.scss';
 import { useParams } from 'react-router-dom';
-import { PageError } from 'widgets/PageError';
 
 interface ArticleDetailsPageProps {
   className?: string;

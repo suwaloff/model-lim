@@ -13,7 +13,7 @@ import { ReduxStoreWithManager } from 'app/providers/StoreProvider';
 import { articleReducer } from 'entities/Article/model/slice/ArticleDetailsSlice';
 import Skeleton from 'shared/ui/skeleton/Skeleton';
 import { Avatar } from 'shared/ui/avatar/Avatar';
-import { Text, TextAlign, TextSize } from 'shared/ui/text/Text';
+import { Text, TextSize } from 'shared/ui/text/Text';
 import CalendarIcon from 'shared/assets/icons/article-icon/calendar.svg';
 import EyeIcon from 'shared/assets/icons/article-icon/eye.svg';
 import cls from './ArticleDetails.module.scss';
@@ -33,28 +33,29 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
   const dispatch = useAppDispatch();
   const error = useSelector(getArticleDetailsError);
   const isLoading = useSelector(getArticleDetailsIsLoading);
-  // const isLoading = true;
   const articleData = useSelector(getArticleDetailsData);
 
   const renderBlock = useCallback((block: ArticleBlock) => {
     switch (block.type) {
       case ArticleBlockType.CODE:
-        return <ArticleCodeBlockComponent className={cls.block} block={block} />;
+        return <ArticleCodeBlockComponent key={block.id} className={cls.block} block={block} />;
       case ArticleBlockType.TEXT:
-        return <ArticleTextBlockComponent className={cls.block} block={block} />;
+        return <ArticleTextBlockComponent key={block.id} className={cls.block} block={block} />;
       case ArticleBlockType.IMAGE:
-        return <ArticleImageBlockComponent className={cls.block} block={block} />;
+        return <ArticleImageBlockComponent key={block.id} className={cls.block} block={block} />;
       default:
         return null;
     }
   }, []);
 
   useEffect(() => {
-    dispatch(fetchArticleById(id));
-    store.reducerManager.add('articleDetails', articleReducer);
-    return () => {
-      store.reducerManager.remove('articleDetails');
-    };
+    if (__PROJECT__ !== 'storybook') {
+      dispatch(fetchArticleById(id));
+      store.reducerManager.add('articleDetails', articleReducer);
+      return () => {
+        store.reducerManager.remove('articleDetails');
+      };
+    }
   }, [dispatch, id]);
 
   if (error) {

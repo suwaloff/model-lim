@@ -14,12 +14,12 @@ export interface ArticleTextBlock extends ArticleBaseBlock {
   title?: string;
   paragraphs: string[];
 }
-export interface ArticleImageBlock {
+export interface ArticleImageBlock extends ArticleBaseBlock {
   type: ArticleBlockType.IMAGE;
   src: string;
   title: string;
 }
-export interface ArticleCodeBlock {
+export interface ArticleCodeBlock extends ArticleBaseBlock {
   type: ArticleBlockType.CODE;
   code: string;
 }

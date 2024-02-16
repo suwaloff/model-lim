@@ -16,7 +16,7 @@ export const fetchArticleById = createAsyncThunk<Article, string, ThunkConfig<st
 
       return response.data;
     } catch (error) {
-      return rejectWithValue(i18n.t('неверный логин и пароль'));
+      return rejectWithValue(i18n.t('статья не найдена'));
     }
   }
 );
