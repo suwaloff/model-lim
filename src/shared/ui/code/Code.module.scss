@@ -15,9 +15,7 @@
 
 .copySvg {
   fill: var(--inverted-secondary-color);
-}
-
-.copyBtn:active {
-  opacity: 0.7;
-  color: aquamarine;
+  &:hover {
+    fill: var(--hover-color);
+  }
 }

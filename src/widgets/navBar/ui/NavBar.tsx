@@ -41,7 +41,7 @@ export const NavBar = memo(({ className }: NavBarProps) => {
         <div className={cls.userСontrols}>
           <ThemeSwitcher />
           <LangSwitcher className={cls.lang} />
-          <Button theme={ButtonTHeme.BACKGROUND} onClick={onLogout}>
+          <Button theme={ButtonTHeme.MAIN} onClick={onLogout}>
             {t('выйти')}
           </Button>
         </div>
@@ -54,7 +54,7 @@ export const NavBar = memo(({ className }: NavBarProps) => {
       <div className={cls.userСontrols}>
         <ThemeSwitcher />
         <LangSwitcher className={cls.lang} />
-        <Button theme={ButtonTHeme.BACKGROUND} onClick={onShowModal}>
+        <Button theme={ButtonTHeme.MAIN} onClick={onShowModal}>
           {t('войти')}
         </Button>
       </div>

@@ -2,10 +2,10 @@
   cursor: pointer;
   position: relative;
   text-align: center;
-  padding: 13px 23px;
+  padding: 10px 22px;
 
   &:hover {
-    opacity: 0.7;
+    color: var(--hover-color);
   }
 }
 
@@ -16,11 +16,13 @@
 }
 
 .main {
-  border: 1px solid var(--inverted-bg-color);
-  border-radius: 8px;
-  background-color: var(--bg-color);
-  color: brown;
-  margin: 20px;
+  border: 1px solid var(--bg-color);
+  border-radius: 24px;
+  background-color: var(--inverted-bg-color);
+  color: var(--primary-color);
+  &:hover {
+    border-color: var(--hover-color);
+  }
 }
 
 .outline {

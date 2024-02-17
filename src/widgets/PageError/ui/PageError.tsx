@@ -24,11 +24,11 @@ export const PageError = ({ className }: PageErrorProps) => {
     <div className={classNames(cls.PageError, {}, [className])}>
       <Fail />
       <h1>{t('Упс! Что-то пошло не так')}</h1>
-      <div className={cls.buttons}>
-        <Button theme={ButtonTHeme.MAIN} onClick={reload}>
+      <div>
+        <Button theme={ButtonTHeme.MAIN} onClick={reload} className={cls.btn}>
           {t('Обновить')}
         </Button>
-        <Button theme={ButtonTHeme.MAIN} onClick={goToMainPage}>
+        <Button theme={ButtonTHeme.MAIN} onClick={goToMainPage} className={cls.btn}>
           {t('На главную')}
         </Button>
       </div>

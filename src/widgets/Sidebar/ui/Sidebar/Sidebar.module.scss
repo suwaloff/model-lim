@@ -17,8 +17,17 @@
 .colapseButton {
   font-size: var(--font-size-l);
   position: absolute;
-  right: -40px;
+  right: -30px;
   bottom: 40px;
+  background-color: var(--inverted-bg-color);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  &:hover {
+    border-right-color: var(--hover-color);
+    border-bottom-color: var(--hover-color);
+    border-top-color: var(--hover-color);
+  }
 }
 
 .collapsed {
