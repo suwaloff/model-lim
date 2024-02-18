@@ -14,8 +14,27 @@
   "comments": [
     {
       "id": "1",
-      "body": "some comment",
-      "postId": "1"
+      "text": "Двери позволяют нам проходить сквозь стены ",
+      "articleId": "1",
+      "userId": "1"
+    },
+    {
+      "id": "2",
+      "text": "Я легко втираюсь в доверие. Я кот.",
+      "articleId": "1",
+      "userId": "2"
+    },
+    {
+      "id": "3",
+      "text": "Почему девушки в фильмах просыпаются в полном макияже?",
+      "articleId": "1",
+      "userId": "3"
+    },
+    {
+      "id": "4",
+      "text": "меня так часто тыкали носом в ковер, что я принял ислам",
+      "articleId": "1",
+      "userId": "4"
     }
   ],
   "articles": [
@@ -42,7 +61,7 @@
         {
           "id": "4",
           "type": "CODE",
-          "code": "const path = require('path');\n\nconst server = jsonServer.create();\n\nconst router = jsonServer.router(path.resolve(__dirname, 'db.json'));\n\nserver.use(jsonServer.defaults({}));\nserver.use(jsonServer.bodyParser);\nconst port = process.env.PORT || 3000;\n\nserver.listen(port, () => {\n    console.log(JSON Server is running on port ${port});\n});"
+          "code": "const express = require('express');\nconst app = express();\n\napp.get('/', (req, res) => {\n    res.send('Hello World!');\n});\n\napp.post('/api/data', (req, res) => {\n    const data = req.body;\n    res.json(data);\n});\n\napp.listen(3000, () => {\n    console.log('Server is running on port 3000');\n});"
         },
         {
           "id": "5",
@@ -511,8 +530,27 @@
   "users": [
     {
       "id": "1",
-      "username": "admin",
-      "password": "123"
+      "username": "подозревака",
+      "password": "123",
+      "avatar": "https://i.ytimg.com/vi/PaErMrM2UcE/sddefault.jpg"
+    },
+    {
+      "id": "2",
+      "username": "батя",
+      "password": "123",
+      "avatar": "https://i.pinimg.com/474x/ee/6e/9a/ee6e9acdb1fa06abfe6db2c42dd91e5f.jpg"
+    },
+    {
+      "id": "3",
+      "username": "милаш",
+      "password": "123",
+      "avatar": "https://i.pinimg.com/564x/4b/ab/a5/4baba51abe8bec1979194d2afb94f31a.jpg"
+    },
+    {
+      "id": "4",
+      "username": "уставший",
+      "password": "123",
+      "avatar": "https://i.pinimg.com/474x/64/fe/16/64fe16a190382098136091b98670d81f.jpg"
     }
   ],
   "profile": {
