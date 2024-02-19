@@ -28,7 +28,7 @@ describe('fetchProfileData.test', () => {
 
   test('success', async () => {
     mockedAxios.get.mockReturnValue(Promise.resolve({ data: data }));
-    const action = fetchProfileData();
+    const action = fetchProfileData('1');
     const result = await action(dispatch, getState, { api: mockedAxios });
     expect(mockedAxios.get).toHaveBeenCalled();
     expect(result.meta.requestStatus).toBe('fulfilled');
@@ -37,7 +37,7 @@ describe('fetchProfileData.test', () => {
 
   test('error', async () => {
     mockedAxios.get.mockReturnValue(Promise.resolve({ status: 403 }));
-    const action = fetchProfileData();
+    const action = fetchProfileData('1');
     const result = await action(dispatch, getState, { api: mockedAxios });
     expect(mockedAxios.get).toHaveBeenCalled();
     expect(result.meta.requestStatus).toBe('rejected');

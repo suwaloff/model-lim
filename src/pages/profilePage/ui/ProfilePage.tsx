@@ -19,6 +19,7 @@ import { getProfileErrors } from 'entities/Profile/model/selectors/getProfileVal
 import { Text, TextTheme } from 'shared/ui/text/Text';
 import { ValidateProfileError } from 'entities/Profile/model/types/Profile';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 const ProfilePage = () => {
   const store = useStore() as ReduxStoreWithManager;
@@ -29,6 +30,7 @@ const ProfilePage = () => {
   const formData = useSelector(getProfileForm);
   const errors = useSelector(getProfileErrors);
   const { t } = useTranslation('profile');
+  const { id } = useParams<{ id: string }>();
 
   const translationsValidationErrors = {
     [ValidateProfileError.INCORRECT_USER_DATA]: t('Пожалуйста заполните все поля'),
@@ -38,14 +40,18 @@ const ProfilePage = () => {
 
   if (__PROJECT__ !== 'storybook') {
     useEffect(() => {
-      dispatch(fetchProfileData());
+      if (!id) {
+        return;
+      }
+
+      dispatch(fetchProfileData(id));
       store.reducerManager.add('profile', profileReducer);
       dispatch({ type: `@INIT test reducer` });
       return () => {
         store.reducerManager.remove('profile');
         dispatch({ type: `@DESTROY test reducer` });
       };
-    }, []);
+    }, [dispatch]);
   }
 
   const onChangeFirstName = useCallback(

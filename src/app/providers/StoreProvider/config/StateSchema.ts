@@ -8,6 +8,7 @@ import { AxiosInstance } from 'axios';
 import { NavigateOptions, To } from 'react-router-dom';
 import { ArticleDetailsShema } from 'entities/Article';
 import { ArticleDetailsCommentShema } from 'pages/articleDetailsPage';
+import { AddCommentFormSchema } from 'features/addCommentForm';
 
 export interface StateSchema {
   counter: CounterSchema;
@@ -18,6 +19,7 @@ export interface StateSchema {
   profile?: ProfileShema;
   articleDetails?: ArticleDetailsShema;
   articleDetailsComment?: ArticleDetailsCommentShema;
+  addCommentForm?: AddCommentFormSchema;
 }
 
 export interface ReduxStoreWithManager extends ToolkitStore<StateSchema> {

@@ -5,6 +5,8 @@ import cls from './CommentCard.module.scss';
 import { Avatar } from 'shared/ui/avatar/Avatar';
 import { DEFAULT_USER_AVATAR } from 'shared/consts/localstorage';
 import Skeleton from 'shared/ui/skeleton/Skeleton';
+import { AppLink } from 'shared/ui/appLink/AppLink';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 
 interface CommentCardProps {
   className?: string;
@@ -29,14 +31,14 @@ export const CommentCard = (props: CommentCardProps) => {
 
   return (
     <div className={classNames(cls.CommentCard, {}, [className])}>
-      <div className={cls.userData}>
+      <AppLink to={`${RoutePath.profile}${comment.user.id}`} className={cls.userData}>
         {comment.user.avatar ? (
           <Avatar src={comment.user.avatar} size={35} />
         ) : (
           <Avatar src={DEFAULT_USER_AVATAR} size={35} />
         )}
         <Text title={comment.user.username} className={cls.username} />
-      </div>
+      </AppLink>
       <Text text={comment.text} className={cls.text} />
     </div>
   );

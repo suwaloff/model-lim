@@ -1,0 +1,22 @@
+.AddCommentForm {
+  border: 1px solid var(--inverted-bg-color);
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.input {
+  border: none;
+  width: 80%;
+  height: 36px;
+  outline: none;
+  &:hover {
+    border: 1px solid var(--hover-color);
+  }
+}
+
+.btn {
+  right: 20px;
+}

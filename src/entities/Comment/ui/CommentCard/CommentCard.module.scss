@@ -7,6 +7,9 @@
 .userData {
   display: flex;
   align-items: center;
+  &:hover {
+    color: var(--hover-color);
+  }
 }
 
 .username {
