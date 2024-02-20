@@ -1,5 +1,4 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './AddCommentForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'shared/ui/button';
 import { useSelector, useStore } from 'react-redux';
@@ -7,23 +6,25 @@ import {
   getCommentFormError,
   getCommentFormText,
 } from '../model/selectors/addCommentFormSelectors';
-import { ChangeEvent, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { ReduxStoreWithManager } from 'app/providers/StoreProvider';
 import { addCommentFormActions, addCommentFormReducer } from '../model/slice/addCommentFormSlice';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
-import { sendComment } from '../model/services/sendComment/sendComment';
+import cls from './AddCommentForm.module.scss';
 
 export interface AddCommentFormProps {
   className?: string;
+  onSendComment: (text: string) => void;
 }
 
-const AddCommentForm = ({ className }: AddCommentFormProps) => {
+const AddCommentForm = (props: AddCommentFormProps) => {
+  const { onSendComment, className } = props;
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const error = useSelector(getCommentFormError);
-  const text = useSelector(getCommentFormText);
   const store = useStore() as ReduxStoreWithManager;
+  const text = useSelector(getCommentFormText);
 
   useInitialEffect(() => {
     store.reducerManager.add('addCommentForm', addCommentFormReducer);
@@ -34,27 +35,28 @@ const AddCommentForm = ({ className }: AddCommentFormProps) => {
     };
   });
 
-  const onChange = useCallback(
-    (event: ChangeEvent<{ value: string }>) => {
+  const onCommentTextChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(addCommentFormActions.setText(event?.target?.value));
     },
     [dispatch]
   );
 
-  const onSendComment = useCallback(() => {
-    dispatch(sendComment());
-  }, [dispatch]);
+  const onSendHandler = useCallback(() => {
+    onSendComment(text || '');
+    dispatch(addCommentFormActions.setText(''));
+  }, [dispatch, text, onSendComment]);
 
   return (
     <div className={classNames(cls.AddCommentForm, {}, [className])}>
       <input
         type="text"
-        onChange={onChange}
+        onChange={onCommentTextChange}
         value={text}
         placeholder={t('Введите комментарий')}
         className={cls.input}
       />
-      <Button onClick={onSendComment}>{t('Отправить')}</Button>
+      <Button onClick={onSendHandler}>{t('Отправить')}</Button>
     </div>
   );
 };

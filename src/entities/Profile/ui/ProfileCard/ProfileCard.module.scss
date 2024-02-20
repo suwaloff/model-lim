@@ -9,18 +9,18 @@
   flex-direction: column;
   margin-top: 10px;
   margin-left: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 }
 
 .input {
   height: 30px;
   width: 200px;
   padding-left: 5px;
-  border: 0;
+  border: 1px solid var(--primary-color);
   border-radius: 4px;
   background-color: var(--bg-color);
   color: var(--primary-color);
-  transition: border-color 0.5s ease;
+  transition: border-color 1s ease;
 }
 
 .avatarWrapper {
@@ -31,7 +31,7 @@
 .editing {
   .input {
     border: 1px solid;
-    border-color: white;
+    border-color: var(--hover-color);
   }
 }
 
@@ -39,4 +39,12 @@
 .select {
   margin-top: 25px;
   margin-bottom: 5px;
+}
+
+.loader {
+  height: 742px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

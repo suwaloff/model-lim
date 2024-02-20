@@ -52,7 +52,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
   if (isLoading) {
     return (
       <div className={classNames(cls.ProfileCard, {}, [className])}>
-        <Loader />
+        <Loader className={cls.loader} />
       </div>
     );
   }
@@ -68,7 +68,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
             <Avatar src={data.avatar} />{' '}
           </div>
         )}
-        <Text title="Ваше имя :" className={cls.text} />
+        <Text text="Ваше имя :" className={cls.text} />
         <input
           className={cls.input}
           value={data?.first || ''}
@@ -79,35 +79,35 @@ export const ProfileCard = (props: ProfileCardProps) => {
             }
           }}
         ></input>
-        <Text title="Ваша фамилия :" className={cls.text} />
+        <Text text="Ваша фамилия :" className={cls.text} />
         <input
           className={cls.input}
           value={data?.lastname || ''}
           readOnly={readonly}
           onChange={(e) => onChangeLastName(e.target.value)}
         ></input>
-        <Text title="Ваш никнейм :" className={cls.text} />
+        <Text text="Ваш никнейм :" className={cls.text} />
         <input
           className={cls.input}
           value={data?.username || ''}
           readOnly={readonly}
           onChange={(e) => onChangeUserName(e.target.value)}
         ></input>
-        <Text title="Ваш Город :" className={cls.text} />
+        <Text text="Ваш Город :" className={cls.text} />
         <input
           className={cls.input}
           value={data?.city || ''}
           readOnly={readonly}
           onChange={(e) => onChangeCity(e.target.value)}
         ></input>
-        <Text title="Ваш Возраст :" className={cls.text} />
+        <Text text="Ваш Возраст :" className={cls.text} />
         <input
           className={cls.input}
           value={data?.age || ''}
           readOnly={readonly}
           onChange={(e) => onChangeAge(e.target.value)}
         ></input>
-        <Text title="Аватарка :" className={cls.text} />
+        <Text text="Аватарка :" className={cls.text} />
         <input
           className={cls.input}
           value={data?.avatar || ''}

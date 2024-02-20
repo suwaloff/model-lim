@@ -12,6 +12,7 @@ import {
 } from 'entities/Profile';
 import { useCallback } from 'react';
 import cls from './ProfilePageHeader.module.scss';
+import { getUserAuthData } from 'entities/User';
 
 interface ProfilePageHeaderProps {
   className?: string;
@@ -22,6 +23,9 @@ export const ProfilePageHeader = ({ className }: ProfilePageHeaderProps) => {
   const dispatch = useAppDispatch();
   const readonly = useSelector(getProfileReadonly);
   const data = useSelector(getProfileData);
+  const authData = useSelector(getUserAuthData);
+  const profileData = useSelector(getProfileData);
+  const canEdit = authData?.id === profileData?.id;
 
   const onEdit = useCallback(() => {
     dispatch(profileActions.setReadOnly(false));
@@ -38,24 +42,25 @@ export const ProfilePageHeader = ({ className }: ProfilePageHeaderProps) => {
 
   return (
     <div className={classNames(cls.ProfilePageHeader, {}, [className])}>
-      <Text title={data?.username} className={cls.title} ></Text>
-      {readonly ? (
-        <Button theme={ButtonTHeme.OUTLINE} onClick={onEdit} className={cls.editBtn} >
-          {' '}
-          {t('Редактировать')}
-        </Button>
-      ) : (
-        <>
-          <Button theme={ButtonTHeme.OUTLINE_RED} onClick={onCancelEdit} className={cls.editBtn}>
+      <Text title={data?.username} className={cls.title}></Text>
+      {canEdit &&
+        (readonly ? (
+          <Button theme={ButtonTHeme.OUTLINE} onClick={onEdit} className={cls.editBtn}>
             {' '}
-            {t('Отмена')}
+            {t('Редактировать')}
           </Button>
-          <Button theme={ButtonTHeme.OUTLINE} onClick={onSave} className={cls.btn}>
-            {' '}
-            {t('Сохранить')}
-          </Button>
-        </>
-      )}
+        ) : (
+          <>
+            <Button theme={ButtonTHeme.OUTLINE_RED} onClick={onCancelEdit} className={cls.editBtn}>
+              {' '}
+              {t('Отмена')}
+            </Button>
+            <Button theme={ButtonTHeme.OUTLINE} onClick={onSave} className={cls.btn}>
+              {' '}
+              {t('Сохранить')}
+            </Button>
+          </>
+        ))}
     </div>
   );
 };
