@@ -16,11 +16,11 @@ import { Avatar } from 'shared/ui/avatar/Avatar';
 import { Text, TextSize } from 'shared/ui/text/Text';
 import CalendarIcon from 'shared/assets/icons/article-icon/calendar.svg';
 import EyeIcon from 'shared/assets/icons/article-icon/eye.svg';
-import cls from './ArticleDetails.module.scss';
 import { ArticleBlock, ArticleBlockType } from '../../model/types/Article';
 import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleCodeBlockComponent';
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
 import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent';
+import cls from './ArticleDetails.module.scss';
 
 interface ArticleDetailsProps {
   className?: string;
@@ -65,7 +65,7 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
       </div>
     );
   }
-  if (isLoading) {
+  if (isLoading || !articleData) {
     return (
       <div className={classNames(cls.ArticleDetails, {}, [className])}>
         <Skeleton width={200} height={200} border="50%" className={cls.avatar} />

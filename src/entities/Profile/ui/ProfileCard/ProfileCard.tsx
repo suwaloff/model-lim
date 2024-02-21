@@ -49,7 +49,7 @@ export const ProfileCard = (props: ProfileCardProps) => {
       </div>
     );
   }
-  if (isLoading) {
+  if (isLoading || !data) {
     return (
       <div className={classNames(cls.ProfileCard, {}, [className])}>
         <Loader className={cls.loader} />
