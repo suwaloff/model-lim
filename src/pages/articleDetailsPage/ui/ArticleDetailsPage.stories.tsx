@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
-import { Theme } from 'app/providers/ThemeProvider';
 import ArticleDetailsPage from './ArticleDetailsPage';
+import { Theme } from 'app/providers/ThemeProvider';
 import { Article, ArticleBlockType, ArticleType } from 'entities/Article/model/types/Article';
 import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
 
@@ -13,6 +13,11 @@ const article: Article = {
   views: 12841,
   createdAt: '14.02.2024',
   type: [ArticleType.IT],
+  userId: {
+    id: '1',
+    username: 'liam',
+    avatar: 'https://i.pinimg.com/474x/ee/6e/9a/ee6e9acdb1fa06abfe6db2c42dd91e5f.jpg',
+  },
   blocks: [
     {
       id: '1',

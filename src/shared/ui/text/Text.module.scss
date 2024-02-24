@@ -3,7 +3,7 @@
 }
 
 .text {
-  color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 .error {
@@ -13,6 +13,15 @@
 
   .text {
     color: var(--red-dark);
+  }
+}
+.secondary {
+  .title {
+    color: var(--secondary-color);
+  }
+
+  .text {
+    color: var(--secondary-color);
   }
 }
 

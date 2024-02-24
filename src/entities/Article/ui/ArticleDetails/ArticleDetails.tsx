@@ -80,7 +80,7 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
   return (
     <div className={classNames(cls.ArticleDetails, {}, [className])}>
       <div className={cls.avatarWrapper}>
-        <Avatar size={300} src={articleData?.img} />
+        <Avatar size={300} src={articleData?.img} className={cls.articleImg} />
       </div>
       <Text
         size={TextSize.L}

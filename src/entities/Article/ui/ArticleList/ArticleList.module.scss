@@ -1,0 +1,14 @@
+.BIG {
+  .card {
+    margin-bottom: 24px;
+  }
+}
+
+.SMALL {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  margin-right: 24px;
+  margin-bottom: 24px;
+}

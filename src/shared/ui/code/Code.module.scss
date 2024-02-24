@@ -17,5 +17,6 @@
   fill: var(--inverted-secondary-color);
   &:hover {
     fill: var(--hover-color);
+    cursor: copy;
   }
 }
