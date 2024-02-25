@@ -18,6 +18,7 @@ import { fetchCommentsByArticleId } from '../model/services/fetchCommentsByArtic
 import { AddCommentForm } from 'features/addCommentForm';
 import { addCommentForArticle } from '../model/services/addCommentForArticle/addCommentForArticle';
 import cls from './ArticleDetailsPage.module.scss';
+import { getArticleDetailsData } from 'entities/Article/model/selectors/getArticleDetails';
 
 interface ArticleDetailsPageProps {
   className?: string;
@@ -30,6 +31,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
   const store = useStore() as ReduxStoreWithManager;
   const comments = useSelector(getArticleComments.selectAll);
   const isLoading = useSelector(getCommentsIsLoading);
+  const article = useSelector(getArticleDetailsData);
 
   useInitialEffect(() => {
     dispatch(fetchCommentsByArticleId(id));
@@ -56,12 +58,17 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
       </div>
     );
   }
+
   return (
     <div className={classNames(cls.ArticleDetailsPage, {}, [className])}>
       <ArticleDetails id={id} />
-      <Text title={t('Комментарии :')} className={cls.title} />
-      <AddCommentForm onSendComment={onSendComment} />
-      <CommentList isLoading={isLoading ? isLoading : false} comments={comments} />
+      {article && (
+        <>
+          <Text title={t('Комментарии :')} className={cls.title} />
+          <AddCommentForm onSendComment={onSendComment} />
+          <CommentList isLoading={isLoading ? isLoading : false} comments={comments} />{' '}
+        </>
+      )}
     </div>
   );
 };

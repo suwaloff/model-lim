@@ -10,7 +10,7 @@ import {
 } from '../../model/selectors/getArticleDetails';
 import { PageError } from 'widgets/PageError';
 import { ReduxStoreWithManager } from 'app/providers/StoreProvider';
-import { articleReducer } from 'entities/Article/model/slice/ArticleDetailsSlice';
+import { articleReducer } from '../../model/slice/ArticleDetailsSlice';
 import Skeleton from 'shared/ui/skeleton/Skeleton';
 import { Avatar } from 'shared/ui/avatar/Avatar';
 import { Text, TextSize } from 'shared/ui/text/Text';
@@ -21,6 +21,10 @@ import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleC
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
 import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent';
 import cls from './ArticleDetails.module.scss';
+import { Button } from 'shared/ui/button';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 
 interface ArticleDetailsProps {
   className?: string;
@@ -29,7 +33,9 @@ interface ArticleDetailsProps {
 
 export const ArticleDetails = (props: ArticleDetailsProps) => {
   const { className, id } = props;
+  const { t } = useTranslation('article-details');
   const store = useStore() as ReduxStoreWithManager;
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const error = useSelector(getArticleDetailsError);
   const isLoading = useSelector(getArticleDetailsIsLoading);
@@ -58,6 +64,10 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
     }
   }, [dispatch, id]);
 
+  const onBackToList = useCallback(() => {
+    navigate(RoutePath.articles);
+  }, [navigate]);
+
   if (error) {
     return (
       <div className={classNames(cls.ArticleDetails, {}, [className])}>
@@ -79,6 +89,7 @@ export const ArticleDetails = (props: ArticleDetailsProps) => {
 
   return (
     <div className={classNames(cls.ArticleDetails, {}, [className])}>
+      <Button onClick={onBackToList}> {t('Назад')}</Button>
       <div className={cls.avatarWrapper}>
         <Avatar size={300} src={articleData?.img} className={cls.articleImg} />
       </div>

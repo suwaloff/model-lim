@@ -21,7 +21,7 @@ export interface AddCommentFormProps {
 const AddCommentForm = (props: AddCommentFormProps) => {
   const { onSendComment, className } = props;
   const dispatch = useAppDispatch();
-  const { t } = useTranslation();
+  const { t } = useTranslation('article-details');
   const error = useSelector(getCommentFormError);
   const store = useStore() as ReduxStoreWithManager;
   const text = useSelector(getCommentFormText);

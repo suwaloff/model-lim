@@ -22,9 +22,9 @@ export const CommentCard = (props: CommentCardProps) => {
       <div className={classNames(cls.CommentCard, {}, [className])}>
         <div className={cls.userData}>
           <Skeleton width={35} height={35} border="50%" />
-          <Skeleton width={100} height={18} border="12%" className={cls.username} />
+          <Skeleton width={100} height={18} border="14px" className={cls.username} />
         </div>
-        <Skeleton width="100%" height={50} className={cls.text} />
+        <Skeleton width="100%" height={50} border="8px" className={cls.text} />
       </div>
     );
   }

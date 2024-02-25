@@ -5,9 +5,7 @@ import {
   ArticleTextBlock,
   ArticleView,
 } from '../../model/types/Article';
-import { Text, TextTheme } from 'shared/ui/text/Text';
-import EyeIcon from 'shared/assets/icons/article-icon/eye.svg';
-import cls from './ArticleListItem.module.scss';
+import { Text } from 'shared/ui/text/Text';
 import { Avatar } from 'shared/ui/avatar/Avatar';
 import { Button } from 'shared/ui/button';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +13,8 @@ import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleT
 import { memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import EyeIcon from 'shared/assets/icons/article-icon/eye.svg';
+import cls from './ArticleListItem.module.scss';
 
 interface ArticleListItemProps {
   className?: string;
