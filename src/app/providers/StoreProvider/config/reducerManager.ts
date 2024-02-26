@@ -1,5 +1,5 @@
 import { AnyAction, Reducer, ReducersMapObject, combineReducers } from '@reduxjs/toolkit';
-import { ReducerManager, StateSchema, StateSchemaKey } from './StateSchema';
+import { MountedReducers, ReducerManager, StateSchema, StateSchemaKey } from './StateSchema';
 
 export function createReducerManager(
   initialReducers: ReducersMapObject<StateSchema>
@@ -7,8 +7,8 @@ export function createReducerManager(
   const reducers = { ...initialReducers };
 
   let combinedReducer = combineReducers(reducers);
-
   let keysToRemove: Array<StateSchemaKey> = [];
+  const mountedReducers: MountedReducers = {};
 
   return {
     getReducerMap: () => reducers,
@@ -39,5 +39,6 @@ export function createReducerManager(
       keysToRemove.push(key);
       combinedReducer = combineReducers(reducers);
     },
+    getMountedReducers: () => mountedReducers,
   };
 }

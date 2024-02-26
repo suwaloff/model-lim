@@ -8,18 +8,17 @@ interface ArticleListProps {
   className?: string;
   articles: Article[];
   isLoading?: boolean;
+  error?: string;
   view?: ArticleView;
 }
 
 export const ArticleList = (props: ArticleListProps) => {
-  const { articles, className, isLoading = true, view = ArticleView.SMALL } = props;
+  const { articles, className, isLoading, view = ArticleView.SMALL } = props;
 
   if (isLoading) {
     return (
       <div className={classNames(cls.ArticleList, {}, [className, cls[view]])}>
-        {new Array(ArticleView.SMALL ? 20 : 4).fill(0).map((index, item) => (
-          <ArticleListItemSkeleton key={index} view={view} className={cls.card} />
-        ))}
+        <ArticleListItemSkeleton view={view} className={cls.card} />
       </div>
     );
   }

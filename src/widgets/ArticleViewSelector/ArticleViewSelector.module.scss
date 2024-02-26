@@ -1,0 +1,10 @@
+.ArticleViewSelector {
+  display: flex;
+  justify-content: end;
+  fill: var(--secondary-color);
+}
+
+.selected {
+  transform: scale(1.1);
+  fill: var(--primary-color);
+}

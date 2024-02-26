@@ -1,95 +1,61 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
-import { Article, ArticleList } from 'entities/Article';
+import { ArticleList, ArticleView } from 'entities/Article';
 import cls from './ArticlesPage.module.scss';
+import {
+  DynamicModuleLoader,
+  ReducersList,
+} from 'shared/components/DynamicModuleLoader/DynamicModuleLoader';
+import {
+  articlesPageAction,
+  articlesPageReducer,
+  getArticles,
+} from '../model/slice/articlesPageSlice';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { fetchArticlesList } from '../model/services/fetchArticlesList';
+import { useSelector } from 'react-redux';
+import {
+  getArticlesPageError,
+  getArticlesPageView,
+  getArticlesPageIsLoading,
+} from '../model/selectors/articlesPageSelectors';
+import { useCallback } from 'react';
+import { ArticleViewSelector } from 'widgets/ArticleViewSelector/ArticleViewSelector';
 
 interface ArticlesPageProps {
   className?: string;
 }
 
-const article = {
-  id: '1',
-  title: 'Javascript статья 1 essdfdsf dsfds dfsf sd',
-  subtitle: 'Подзаголовок статьи',
-  img: 'https://itproger.com/img/news/1545489100.jpg',
-  views: 12841,
-  createdAt: '14.02.2024',
-  userId: {
-    id: '1',
-    username: 'liam',
-    avatar: 'https://i.pinimg.com/474x/ee/6e/9a/ee6e9acdb1fa06abfe6db2c42dd91e5f.jpg',
-  },
-  type: ['IT', 'fsdf', 'sdfdsf', '342525', 'sdfdsf', '342525'],
-  blocks: [
-    {
-      id: '1',
-      type: 'TEXT',
-      title: 'Заголовок этого блока',
-      paragraphs: [
-        'Программа, которую по традиции называют «Hello, world!», очень проста. Она выводит куда-либо фразу «Hello, world!», или другую подобную, средствами некоего языка.',
-        'JavaScript — это язык, программы на котором можно выполнять в разных средах. В нашем случае речь идёт о браузерах и о серверной платформе Node.js. Если до сих пор вы не написали ни строчки кода на JS и читаете этот текст в браузере, на настольном компьютере, это значит, что вы буквально в считанных секундах от своей первой JavaScript-программы.',
-        'Существуют и другие способы запуска JS-кода в браузере. Так, если говорить об обычном использовании программ на JavaScript, они загружаются в браузер для обеспечения работы веб-страниц. Как правило, код оформляют в виде отдельных файлов с расширением .js, которые подключают к веб-страницам, но программный код можно включать и непосредственно в код страницы. Всё это делается с помощью тега <script>. Когда браузер обнаруживает такой код, он выполняет его. Подробности о теге script можно посмотреть на сайте w3school.com. В частности, рассмотрим пример, демонстрирующий работу с веб-страницей средствами JavaScript, приведённый на этом ресурсе. Этот пример можно запустить и средствами данного ресурса (ищите кнопку Try it Yourself), но мы поступим немного иначе. А именно, создадим в каком-нибудь текстовом редакторе (например — в VS Code или в Notepad++) новый файл, который назовём hello.html, и добавим в него следующий код:',
-      ],
-    },
-    {
-      id: '4',
-      type: 'CODE',
-      code: "const express = require('express');\nconst app = express();\n\napp.get('/', (req, res) => {\n    res.send('Hello World!');\n});\n\napp.post('/api/data', (req, res) => {\n    const data = req.body;\n    res.json(data);\n});\n\napp.listen(3000, () => {\n    console.log('Server is running on port 3000');\n});",
-    },
-    {
-      id: '5',
-      type: 'TEXT',
-      title: 'Заголовок этого блока',
-      paragraphs: [
-        'Программа, которую по традиции называют «Hello, world!», очень проста. Она выводит куда-либо фразу «Hello, world!», или другую подобную, средствами некоего языка.',
-        'Существуют и другие способы запуска JS-кода в браузере. Так, если говорить об обычном использовании программ на JavaScript, они загружаются в браузер для обеспечения работы веб-страниц. Как правило, код оформляют в виде отдельных файлов с расширением .js, которые подключают к веб-страницам, но программный код можно включать и непосредственно в код страницы. Всё это делается с помощью тега <script>. Когда браузер обнаруживает такой код, он выполняет его. Подробности о теге script можно посмотреть на сайте w3school.com. В частности, рассмотрим пример, демонстрирующий работу с веб-страницей средствами JavaScript, приведённый на этом ресурсе. Этот пример можно запустить и средствами данного ресурса (ищите кнопку Try it Yourself), но мы поступим немного иначе. А именно, создадим в каком-нибудь текстовом редакторе (например — в VS Code или в Notepad++) новый файл, который назовём hello.html, и добавим в него следующий код:',
-      ],
-    },
-    {
-      id: '2',
-      type: 'IMAGE',
-      src: 'https://hsto.org/r/w1560/getpro/habr/post_images/d56/a02/ffc/d56a02ffc62949b42904ca00c63d8cc1.png',
-      title: 'Рисунок 1 - скриншот сайта',
-    },
-    {
-      id: '3',
-      type: 'CODE',
-      code: "const express = require('express');\nconst app = express();\n\napp.get('/', (req, res) => {\n    res.send('Hello World!');\n});\n\napp.post('/api/data', (req, res) => {\n    const data = req.body;\n    res.json(data);\n});\n\napp.listen(3000, () => {\n    console.log('Server is running on port 3000');\n});",
-    },
-    {
-      id: '7',
-      type: 'TEXT',
-      title: 'Заголовок этого блока',
-      paragraphs: [
-        'JavaScript — это язык, программы на котором можно выполнять в разных средах. В нашем случае речь идёт о браузерах и о серверной платформе Node.js. Если до сих пор вы не написали ни строчки кода на JS и читаете этот текст в браузере, на настольном компьютере, это значит, что вы буквально в считанных секундах от своей первой JavaScript-программы.',
-        'Существуют и другие способы запуска JS-кода в браузере. Так, если говорить об обычном использовании программ на JavaScript, они загружаются в браузер для обеспечения работы веб-страниц. Как правило, код оформляют в виде отдельных файлов с расширением .js, которые подключают к веб-страницам, но программный код можно включать и непосредственно в код страницы. Всё это делается с помощью тега <script>. Когда браузер обнаруживает такой код, он выполняет его. Подробности о теге script можно посмотреть на сайте w3school.com. В частности, рассмотрим пример, демонстрирующий работу с веб-страницей средствами JavaScript, приведённый на этом ресурсе. Этот пример можно запустить и средствами данного ресурса (ищите кнопку Try it Yourself), но мы поступим немного иначе. А именно, создадим в каком-нибудь текстовом редакторе (например — в VS Code или в Notepad++) новый файл, который назовём hello.html, и добавим в него следующий код:',
-      ],
-    },
-    {
-      id: '8',
-      type: 'IMAGE',
-      src: 'https://hsto.org/r/w1560/getpro/habr/post_images/d56/a02/ffc/d56a02ffc62949b42904ca00c63d8cc1.png',
-      title: 'Рисунок 1 - скриншот сайта',
-    },
-    {
-      id: '9',
-      type: 'TEXT',
-      title: 'Заголовок этого блока',
-      paragraphs: [
-        'JavaScript — это язык, программы на котором можно выполнять в разных средах. В нашем случае речь идёт о браузерах и о серверной платформе Node.js. Если до сих пор вы не написали ни строчки кода на JS и читаете этот текст в браузере, на настольном компьютере, это значит, что вы буквально в считанных секундах от своей первой JavaScript-программы.',
-      ],
-    },
-  ],
-} as Article;
+const reducers: ReducersList = {
+  articlesPage: articlesPageReducer,
+};
 
 const ArticlesPage = ({ className }: ArticlesPageProps) => {
-  const { t } = useTranslation('article');
+  const dispatch = useAppDispatch();
+  const articles = useSelector(getArticles.selectAll);
+  const view = useSelector(getArticlesPageView);
+  const error = useSelector(getArticlesPageError);
+  const isLoading = useSelector(getArticlesPageIsLoading);
+
+  useInitialEffect(() => {
+    dispatch(fetchArticlesList());
+    dispatch(articlesPageAction.initView());
+  });
+
+  const onChangeView = useCallback(
+    (view: ArticleView) => {
+      dispatch(articlesPageAction.setView(view));
+    },
+    [dispatch]
+  );
+
   return (
-    <div className={classNames(cls.ArticlesPage, {}, [className])}>
-      <ArticleList
-        articles={new Array(60).fill(0).map((item, index) => ({ ...article, id: String(index) }))}
-      />
-    </div>
+    <DynamicModuleLoader reducers={reducers}>
+      <div className={classNames(cls.ArticlesPage, {}, [className])}>
+        <ArticleViewSelector onViewClick={onChangeView} view={view} />
+        <ArticleList articles={articles} isLoading={isLoading} view={view} error={error} />
+      </div>
+    </DynamicModuleLoader>
   );
 };
 
