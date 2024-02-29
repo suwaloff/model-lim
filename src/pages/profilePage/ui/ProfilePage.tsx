@@ -20,6 +20,8 @@ import { Text, TextTheme } from 'shared/ui/text/Text';
 import { ValidateProfileError } from 'entities/Profile/model/types/Profile';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+import { Page } from 'shared/ui/page/Page';
+import cls from './ProfilePage.module.scss';
 
 const ProfilePage = () => {
   const store = useStore() as ReduxStoreWithManager;
@@ -105,7 +107,7 @@ const ProfilePage = () => {
   );
 
   return (
-    <div>
+    <Page>
       <ProfilePageHeader />
       {errors &&
         errors.map((err) => (
@@ -125,7 +127,7 @@ const ProfilePage = () => {
         onChangeCountry={onChangeCountry}
         readonly={readonly}
       />
-    </div>
+    </Page>
   );
 };
 

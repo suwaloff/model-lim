@@ -19,6 +19,7 @@ import { AddCommentForm } from 'features/addCommentForm';
 import { addCommentForArticle } from '../model/services/addCommentForArticle/addCommentForArticle';
 import cls from './ArticleDetailsPage.module.scss';
 import { getArticleDetailsData } from 'entities/Article/model/selectors/getArticleDetails';
+import { Page } from 'shared/ui/page/Page';
 
 interface ArticleDetailsPageProps {
   className?: string;
@@ -53,14 +54,14 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
 
   if (!id) {
     return (
-      <div className={classNames(cls.ArticleDetailsPage, {}, [className])}>
+      <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
         {t('статья не найдена..')}
-      </div>
+      </Page>
     );
   }
 
   return (
-    <div className={classNames(cls.ArticleDetailsPage, {}, [className])}>
+    <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
       <ArticleDetails id={id} />
       {article && (
         <>
@@ -69,7 +70,7 @@ const ArticleDetailsPage = ({ className }: ArticleDetailsPageProps) => {
           <CommentList isLoading={isLoading ? isLoading : false} comments={comments} />{' '}
         </>
       )}
-    </div>
+    </Page>
   );
 };
 

@@ -3,14 +3,11 @@ import { AppRoutesProps, routeConfig } from 'shared/config/routeConfig/routeConf
 import { Suspense, memo, useCallback } from 'react';
 import { PageLoader } from 'widgets/PageLoader/PageLoader';
 import { RequireAuth } from './RequireAuth';
+import { Page } from 'shared/ui/page/Page';
 
 const AppRouter = () => {
   const renderWithWrapper = useCallback((route: AppRoutesProps) => {
-    const element = (
-      <Suspense fallback={<PageLoader />}>
-        <div className="page-wrapper">{route.element}</div>
-      </Suspense>
-    );
+    const element = <Suspense fallback={<PageLoader />}>{route.element}</Suspense>;
     return (
       <Route
         key={route.path}

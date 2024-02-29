@@ -1,3 +1,7 @@
+.ArticleDetails {
+  min-height: 100%;
+}
+
 .avatar {
   margin: 0 auto;
 }
@@ -15,7 +19,7 @@
 
 .icon {
   fill: var(--inverted-bg-color);
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 .articleInfo {

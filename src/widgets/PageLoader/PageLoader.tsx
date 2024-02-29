@@ -1,6 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Loader } from 'shared/ui/loader/Loader';
 import cls from './PageLoader.module.scss';
+import { Page } from 'shared/ui/page/Page';
 
 interface PageLoaderProps {
   className?: string;
@@ -8,8 +9,8 @@ interface PageLoaderProps {
 
 export const PageLoader = ({ className }: PageLoaderProps) => {
   return (
-    <div className={classNames(cls.PageLoader, {}, [className])}>
+    <Page className={classNames(cls.PageLoader, {}, [className])}>
       <Loader />
-    </div>
+    </Page>
   );
 };

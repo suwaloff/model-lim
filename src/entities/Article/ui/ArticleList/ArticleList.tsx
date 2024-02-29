@@ -15,13 +15,12 @@ interface ArticleListProps {
 export const ArticleList = (props: ArticleListProps) => {
   const { articles, className, isLoading, view = ArticleView.SMALL } = props;
 
-  if (isLoading) {
-    return (
-      <div className={classNames(cls.ArticleList, {}, [className, cls[view]])}>
-        <ArticleListItemSkeleton view={view} className={cls.card} />
-      </div>
-    );
-  }
+  const getSkeletons = (view: ArticleView) =>
+    new Array(view === ArticleView.SMALL ? 9 : 3)
+      .fill(0)
+      .map((item, index) => (
+        <ArticleListItemSkeleton className={cls.card} key={index} view={view} />
+      ));
 
   const renderArticles = (article: Article) => {
     return <ArticleListItem article={article} view={view} className={cls.card} key={article.id} />;
@@ -30,6 +29,7 @@ export const ArticleList = (props: ArticleListProps) => {
   return (
     <div className={classNames(cls.ArticleList, {}, [className, cls[view]])}>
       {articles.length > 0 ? articles.map(renderArticles) : null}
+      {isLoading && getSkeletons(view)}
     </div>
   );
 };
