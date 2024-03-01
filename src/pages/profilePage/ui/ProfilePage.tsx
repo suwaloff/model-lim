@@ -20,7 +20,7 @@ import { Text, TextTheme } from 'shared/ui/text/Text';
 import { ValidateProfileError } from 'entities/Profile/model/types/Profile';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { Page } from 'shared/ui/page/Page';
+import { Page } from 'widgets/Page/Page';
 import cls from './ProfilePage.module.scss';
 
 const ProfilePage = () => {

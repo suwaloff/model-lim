@@ -10,10 +10,12 @@ import { ArticleDetailsShema } from 'entities/Article';
 import { ArticleDetailsCommentShema } from 'pages/articleDetailsPage';
 import { AddCommentFormSchema } from 'features/addCommentForm';
 import { ArticlesPageShema } from 'pages/articlesPage';
+import { SaveScrollSchema } from 'widgets/Page/saveScroll';
 
 export interface StateSchema {
   counter: CounterSchema;
   user: UserShema;
+  saveScroll: SaveScrollSchema;
 
   // Async
   login?: LoginSchema;

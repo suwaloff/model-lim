@@ -16,12 +16,11 @@ import {
   getArticlesPageError,
   getArticlesPageView,
   getArticlesPageIsLoading,
-  getArticlesPageNum,
 } from '../model/selectors/articlesPageSelectors';
 import { useCallback } from 'react';
 import { ArticleViewSelector } from 'widgets/ArticleViewSelector/ArticleViewSelector';
 import cls from './ArticlesPage.module.scss';
-import { Page } from 'shared/ui/page/Page';
+import { Page } from 'widgets/Page/Page';
 import { initArticlesPage } from '../model/services/initArticlesPage/initArticlesPage';
 import { fetchNextArticlesPage } from '../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
 
@@ -39,7 +38,6 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
   const view = useSelector(getArticlesPageView);
   const error = useSelector(getArticlesPageError);
   const isLoading = useSelector(getArticlesPageIsLoading);
-  const page = useSelector(getArticlesPageNum);
 
   useInitialEffect(() => {
     dispatch(initArticlesPage());
@@ -57,7 +55,7 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
   }, [dispatch]);
 
   return (
-    <DynamicModuleLoader reducers={reducers}>
+    <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <Page onScrollEnd={onLoadNext} className={classNames(cls.ArticlesPage, {}, [className])}>
         <ArticleViewSelector onViewClick={onChangeView} view={view} />
         <ArticleList articles={articles} isLoading={isLoading} view={view} error={error} />

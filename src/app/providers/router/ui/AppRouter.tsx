@@ -3,7 +3,6 @@ import { AppRoutesProps, routeConfig } from 'shared/config/routeConfig/routeConf
 import { Suspense, memo, useCallback } from 'react';
 import { PageLoader } from 'widgets/PageLoader/PageLoader';
 import { RequireAuth } from './RequireAuth';
-import { Page } from 'shared/ui/page/Page';
 
 const AppRouter = () => {
   const renderWithWrapper = useCallback((route: AppRoutesProps) => {

@@ -19,7 +19,7 @@ import { AddCommentForm } from 'features/addCommentForm';
 import { addCommentForArticle } from '../model/services/addCommentForArticle/addCommentForArticle';
 import cls from './ArticleDetailsPage.module.scss';
 import { getArticleDetailsData } from 'entities/Article/model/selectors/getArticleDetails';
-import { Page } from 'shared/ui/page/Page';
+import { Page } from 'widgets/Page/Page';
 
 interface ArticleDetailsPageProps {
   className?: string;
