@@ -8,7 +8,7 @@ import {
   articlesPageAction,
   articlesPageReducer,
   getArticles,
-} from '../model/slice/articlesPageSlice';
+} from '../../model/slice/articlesPageSlice';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useSelector } from 'react-redux';
@@ -16,13 +16,14 @@ import {
   getArticlesPageError,
   getArticlesPageView,
   getArticlesPageIsLoading,
-} from '../model/selectors/articlesPageSelectors';
+} from '../../model/selectors/articlesPageSelectors';
 import { useCallback } from 'react';
 import { ArticleViewSelector } from 'widgets/ArticleViewSelector/ArticleViewSelector';
 import cls from './ArticlesPage.module.scss';
 import { Page } from 'widgets/Page/Page';
-import { initArticlesPage } from '../model/services/initArticlesPage/initArticlesPage';
-import { fetchNextArticlesPage } from '../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
+import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage';
+import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
+import { ArticlesPageFilter } from '../ArticlesPageFilter/ArticlesPageFilter';
 
 interface ArticlesPageProps {
   className?: string;
@@ -35,20 +36,13 @@ const reducers: ReducersList = {
 const ArticlesPage = ({ className }: ArticlesPageProps) => {
   const dispatch = useAppDispatch();
   const articles = useSelector(getArticles.selectAll);
-  const view = useSelector(getArticlesPageView);
   const error = useSelector(getArticlesPageError);
   const isLoading = useSelector(getArticlesPageIsLoading);
+  const view = useSelector(getArticlesPageView);
 
   useInitialEffect(() => {
     dispatch(initArticlesPage());
   });
-
-  const onChangeView = useCallback(
-    (view: ArticleView) => {
-      dispatch(articlesPageAction.setView(view));
-    },
-    [dispatch]
-  );
 
   const onLoadNext = useCallback(() => {
     dispatch(fetchNextArticlesPage());
@@ -57,7 +51,7 @@ const ArticlesPage = ({ className }: ArticlesPageProps) => {
   return (
     <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
       <Page onScrollEnd={onLoadNext} className={classNames(cls.ArticlesPage, {}, [className])}>
-        <ArticleViewSelector onViewClick={onChangeView} view={view} />
+        <ArticlesPageFilter />
         <ArticleList articles={articles} isLoading={isLoading} view={view} error={error} />
       </Page>
     </DynamicModuleLoader>

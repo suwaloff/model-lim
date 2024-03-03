@@ -1,0 +1,24 @@
+.sortWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inputWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 16px;
+}
+
+.input {
+  width: 300px;
+  padding: 4px;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  transition: border-color 1s ease;
+  &:hover {
+    border-color: var(--hover-color);
+  }
+}
