@@ -7,6 +7,7 @@ import { Reducer } from '@reduxjs/toolkit';
 import { articleReducer } from 'entities/Article/model/slice/ArticleDetailsSlice';
 import { addCommentFormReducer } from 'features/addCommentForm/model/slice/addCommentFormSlice';
 import { articleDetailsCommentsReducer } from 'pages/articleDetailsPage/model/slice/articleDetailsCommentsSlice';
+import { articlesPageReducer } from 'pages/articlesPage';
 
 type ReducersList = {
   [name in StateSchemaKey]?: Reducer;
@@ -18,6 +19,7 @@ const defaultAsyncReducers: ReducersList = {
   articleDetails: articleReducer,
   addCommentForm: addCommentFormReducer,
   articleDetailsComment: articleDetailsCommentsReducer,
+  articlesPage: articlesPageReducer,
 };
 
 export const StoreDecorator =

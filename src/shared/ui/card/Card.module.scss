@@ -1,0 +1,14 @@
+.Card {
+  border-radius: 14px;
+  padding: 6px 12px;
+  &:hover {
+    color: var(--hover-color);
+  }
+}
+.normal {
+  background-color: var(--card-bg-color);
+}
+
+.outlined {
+  border: 1px solid var(--hover-color);
+}

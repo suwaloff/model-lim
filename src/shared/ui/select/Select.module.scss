@@ -11,6 +11,9 @@
   outline: none;
   border-radius: 4px;
   color: var(--primary-color);
+  &:hover {
+    border-color: var(--hover-color);
+  }
 }
 
 .option {
