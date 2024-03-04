@@ -29,6 +29,7 @@ const articlesPageSlice = createSlice({
     search: '',
     sort: ArticleSortField.CREATED,
     order: 'asc',
+    limit: 10,
   }),
   reducers: {
     setView: (state, action: PayloadAction<ArticleView>) => {
@@ -54,18 +55,27 @@ const articlesPageSlice = createSlice({
       state._inited = true;
     },
   },
-  extraReducers(builder) {
+  extraReducers: (builder) => {
     builder
-      .addCase(fetchArticlesList.pending.type, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchArticlesList.fulfilled.type, (state, action: PayloadAction<Article[]>) => {
-        state.isLoading = false;
+      .addCase(fetchArticlesList.pending, (state, action) => {
         state.error = undefined;
-        articlesAdapter.addMany(state, action.payload);
-        state.hasMore = action.payload.length > 0;
+        state.isLoading = true;
+
+        if (action.meta.arg.replace) {
+          articlesAdapter.removeAll(state);
+        }
       })
-      .addCase(fetchArticlesList.rejected.type, (state, action: PayloadAction<string>) => {
+      .addCase(fetchArticlesList.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.hasMore = action.payload.length >= state.limit;
+
+        if (action.meta.arg.replace) {
+          articlesAdapter.setAll(state, action.payload);
+        } else {
+          articlesAdapter.addMany(state, action.payload);
+        }
+      })
+      .addCase(fetchArticlesList.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

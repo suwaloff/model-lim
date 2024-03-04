@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Select, SelectOption } from 'shared/ui/select/Select';
 import { useTranslation } from 'react-i18next';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { ArticleSortField } from 'entities/Article/model/types/Article';
 import { SortOrder } from 'shared/types';
 import cls from './ArticleSortSelector.module.scss';
@@ -17,7 +17,7 @@ interface ArticleSortSelectorProps {
 export const ArticleSortSelector = (props: ArticleSortSelectorProps) => {
   const { className, order, sort, onChangeSort, onChangeOrder } = props;
   const { t } = useTranslation('article-details');
-  const orderOptions = useMemo<SelectOption[]>(
+  const orderOptions = useMemo<SelectOption<SortOrder>[]>(
     () => [
       {
         value: 'asc',
@@ -30,7 +30,7 @@ export const ArticleSortSelector = (props: ArticleSortSelectorProps) => {
     ],
     []
   );
-  const sortOptions = useMemo<SelectOption[]>(
+  const sortOptions = useMemo<SelectOption<ArticleSortField>[]>(
     () => [
       {
         value: ArticleSortField.CREATED,
@@ -48,29 +48,20 @@ export const ArticleSortSelector = (props: ArticleSortSelectorProps) => {
     []
   );
 
-  const changeSortHandler = useCallback(
-    (newSort?: string) => {
-      onChangeSort(newSort as ArticleSortField);
-    },
-    [onChangeSort]
-  );
-  const changeOrderHandler = useCallback(
-    (newOrder?: string) => {
-      onChangeOrder(newOrder as SortOrder);
-    },
-    [onChangeOrder]
-  );
-
   return (
     <div className={classNames(cls.ArticleSortSelector, {}, [className])}>
-      <Select
+      <Select<ArticleSortField>
         label={t('Сортировать по')}
         options={sortOptions}
         value={sort}
-        onChange={changeSortHandler}
+        onChange={onChangeSort}
       />
-
-      <Select label={t('По')} options={orderOptions} value={sort} onChange={changeOrderHandler} />
+      <Select<SortOrder>
+        label={t('По')}
+        options={orderOptions}
+        value={order}
+        onChange={onChangeOrder}
+      />
     </div>
   );
 };

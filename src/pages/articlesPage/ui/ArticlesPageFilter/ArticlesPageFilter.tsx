@@ -16,6 +16,8 @@ import { ArticleSortSelector } from 'entities/Article/ui/ArticleSortSelector/Art
 import { SortOrder } from 'shared/types';
 import { ArticleSortField } from 'entities/Article/model/types/Article';
 import cls from './ArticlesPageFilter.module.scss';
+import { fetchArticlesList } from 'pages/articlesPage/model/services/fetchArticlesList/fetchArticlesList';
+import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
 
 interface ArticlesPageFilterProps {
   className?: string;
@@ -29,23 +31,43 @@ export const ArticlesPageFilter = ({ className }: ArticlesPageFilterProps) => {
   const sort = useSelector(getArticlesPageSort);
   const search = useSelector(getArticlesPageSearch);
 
+  const fetchData = useCallback(() => {
+    dispatch(fetchArticlesList({ replace: true }));
+  }, [dispatch]);
+
+  const debouncedFetchData = useDebounce(fetchData, 500);
+
   const onChangeView = useCallback(
     (view: ArticleView) => {
       dispatch(articlesPageAction.setView(view));
+      dispatch(articlesPageAction.setPage(1));
+      fetchData();
     },
-    [dispatch]
+    [dispatch, fetchData]
   );
   const onChangeSort = useCallback(
     (newSort: ArticleSortField) => {
       dispatch(articlesPageAction.setSort(newSort));
+      dispatch(articlesPageAction.setPage(1));
+      fetchData();
     },
-    [dispatch]
+    [dispatch, fetchData]
   );
   const onChangeOrder = useCallback(
     (newOrder: SortOrder) => {
       dispatch(articlesPageAction.setOrder(newOrder));
+      dispatch(articlesPageAction.setPage(1));
+      fetchData();
     },
-    [dispatch]
+    [dispatch, fetchData]
+  );
+  const onChangeSearch = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(articlesPageAction.setSearch(e.target.value));
+      dispatch(articlesPageAction.setPage(1));
+      debouncedFetchData();
+    },
+    [dispatch, fetchData]
   );
 
   return (
@@ -60,7 +82,12 @@ export const ArticlesPageFilter = ({ className }: ArticlesPageFilterProps) => {
         <ArticleViewSelector onViewClick={onChangeView} view={view} />
       </div>
       <div className={cls.inputWrapper}>
-        <input placeholder={t('поиск..')} className={cls.input} />
+        <input
+          placeholder={t('поиск..')}
+          className={cls.input}
+          value={search}
+          onChange={onChangeSearch}
+        />
       </div>
     </div>
   );
